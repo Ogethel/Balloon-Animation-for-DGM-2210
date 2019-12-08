@@ -1,0 +1,297 @@
+﻿// Landscape Builder. Copyright (c) 2016-2018 SCSM Pty Ltd. All rights reserved.
+#pragma kernel GrassPerlin
+
+#define LB_GRASS_NUM_THREADS 256
+
+// Heightmap variables
+StructuredBuffer<float> heightsIn;
+// Low res heights for whole landscape
+StructuredBuffer<float> heightsLandscape;
+uint hmapLandscapeRes;
+
+// Grass variables
+RWStructuredBuffer<int> detailDensityMap;
+uint detailWidth;
+uint detailHeight;
+// Height = 0, Inclination = 1, HeightAndInclination = 2, ConstantInfluence = 3, Map = 4, HeightInclinationMap = 5, HeightInclinationCurvature = 6, GroupsOnly = 11, Imported = 20
+uint grassPlacingMode;
+bool grassDontFade;
+bool useNoise;
+float noiseTileSize;
+int noiseOctaves;
+float grassNoiseMultiplier;
+float grassPlacementCutoff;
+uint minDensity;
+uint maxDensity;
+float minH;
+float maxH;
+float minI;
+float maxI;
+int isCurvatureConcave;
+float curvatureMinHeightDiffN;
+float curvatureDistanceXN;
+float curvatureDistanceZN;
+Texture2D<float4> mapTex;
+uint mapTexWidth;
+uint mapTexHeight;
+bool mapInverse;
+// Are there any filters of these types?
+bool isAreaFilters;
+bool isStencilLayerFilters;
+bool isTextureFilters;
+
+#include "LBCGNoiseExt.cginc"
+#include "LBCGCalc.cginc"
+#include "LBCGLib.cginc"
+#include "LBCGNoise.cginc"
+#include "LBCGStencil.cginc"
+
+uint numlbFilters;
+StructuredBuffer<LBFilter> lbFilters;
+
+
+// Return values between min (inclusive) and max (inclusive)
+int RandomRange(int min, int max, float2 uv)
+{
+	// Get a value between 0.0 and 0.999.
+	// NOTE: We don't actually ever want 1.0 returned
+	//float nF = Value2D(uv);
+	//if (nF == 1.0) { nF -= 0.001; }
+	float nF = frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
+	if (nF < 0.0) { nF *= -1.0; }
+
+	// Expand min/max range by subtracting 0.5 from min, and adding 0.5 to max.
+	// This will ensure the min and max values have the same distribution as
+	// values between min and max.
+	// Fast round by adding 0.5 and truncate to int - similar to Math.Floor()
+	return trunc(((float(max - min + 1) * nF) + (float)min - 0.5) + 0.5);
+}
+
+[numthreads(LB_GRASS_NUM_THREADS, 1, 1)]
+void GrassPerlin(uint3 id : SV_DispatchThreadID)
+{
+	// Get x,y coordinates within the terrain's detailMap
+	uint2 pos = Get2DPos(id.x, detailWidth);
+
+	// Get terrain normalised position of detail/grass point - values between 0.0 and 1.0
+	float2 detailLess1F = float2(detailWidth - 1, detailHeight - 1);
+	// Switch x,y to be backward compatible with non-compute code
+	float2 posN = float2(pos.y / detailLess1F.y, pos.x / detailLess1F.x);
+
+	// Get the normalised 2D position in the landscape (x 0.0-1.0, y 0.0-1.0)
+	float2 landscapePos2DN = GetTopoLandscapePos2DN(posN);
+
+	// Get the landscape 2D position in metres, from the bottom-left corner
+	float2 landscapePos2DM = GetTopoLandscapePos2DMfromN(landscapePos2DN);
+
+	float detailFactor = 0.0;
+
+	// Interpolate between grass based on height
+	float heightN = LBGetInterpolatedHeightN(posN, heightsIn) + 0.00001;
+
+	// Get the angle or steepness of this point on terrain
+	float angle = LBGetSteepness(posN) + 0.00001;
+
+	if (grassPlacingMode == 0) // Height
+	{
+		detailFactor = LBEvaluateWideRangeCurve(LBInverseLerp(minH, maxH, heightN));
+	}
+	else if (grassPlacingMode == 1) // Inclination
+	{
+		detailFactor = LBEvaluateWideRangeCurve(LBInverseLerp(minI, maxI, angle));
+	}
+	else if (grassPlacingMode == 2) //HeightAndInclination
+	{
+		detailFactor = LBEvaluateWideRangeCurve(LBInverseLerp(minH, maxH, heightN)) * LBEvaluateWideRangeCurve(LBInverseLerp(minI, maxI, angle));
+	}
+	else if (grassPlacingMode == 3) //ConstantInfluence
+	{
+		detailFactor = 1.0;
+	}
+
+	// Height Inclination Curvature
+	else if (grassPlacingMode == 6)
+	{
+		detailFactor = LBEvaluateWideRangeCurve(LBInverseLerp(minH, maxH, heightN)) * LBEvaluateWideRangeCurve(LBInverseLerp(minI, maxI, angle));
+
+		if (detailFactor > 0.0)
+		{
+			float h = 0.0;
+
+			// Get 4 surrounding points
+			float2 h1N = float2(posN.x, posN.y - curvatureDistanceZN);
+			float2 h2N = float2(posN.x, posN.y + curvatureDistanceZN);
+			float2 h3N = float2(posN.x - curvatureDistanceXN, posN.y);
+			float2 h4N = float2(posN.x + curvatureDistanceXN, posN.y);
+
+			if (h1N.y >= 0.0) { h += LBGetInterpolatedHeightN(h1N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x, landscapePos2DN.y - ((curvatureDistanceZN * terrainLength) / landscapeSize.y)), heightsLandscape, hmapLandscapeRes);
+			}
+			//else { h += heightN; }
+
+			if (h2N.y <= 1.0) { h += LBGetInterpolatedHeightN(h2N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x, landscapePos2DN.y + ((curvatureDistanceZN * terrainLength) / landscapeSize.y)), heightsLandscape, hmapLandscapeRes);
+			}
+			//else { h += heightN; }
+
+			if (h3N.x >= 0.0) { h += LBGetInterpolatedHeightN(h3N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x - ((curvatureDistanceXN * terrainWidth) / landscapeSize.x), landscapePos2DN.y), heightsLandscape, hmapLandscapeRes);
+			}
+			//else { h += heightN; }
+
+			if (h4N.x <= 1.0) { h += LBGetInterpolatedHeightN(h4N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x + ((curvatureDistanceXN * terrainWidth) / landscapeSize.x), landscapePos2DN.y), heightsLandscape, hmapLandscapeRes);
+			}
+			//else { h += heightN; }
+
+			if (isCurvatureConcave == 1)
+			{
+				// If Avg is NOT above the current point by height difference, then it is NOT concave
+				if ((h / 4.0) < heightN + curvatureMinHeightDiffN) { detailFactor = 0.0; }
+			}
+			else
+			{
+				// If Avg is NOT below the current point by height difference, then it is NOT convex
+				if ((h / 4.0) > heightN + curvatureMinHeightDiffN) { detailFactor = 0.0; }
+			}
+		}
+	}
+
+	// Map or HeightInclinationMap
+	else if (grassPlacingMode == 4 || grassPlacingMode == 5)
+	{
+		float mapValue = 0.0;
+
+		// Read from map texture
+		//mapValue = LBGrayScale(mapTex[uint2(landscapePos2DN.x * mapTexWidth, landscapePos2DN.y * mapTexHeight)].xyz);
+		mapValue = LBGrayScale(mapTex.SampleLevel(LBLinearClampSampler, landscapePos2DN, 0).rgb);
+
+		// Evaluate against default LBMap toleranceBlendCurve (cubed curve), and invert the Map if required
+		mapValue = (mapInverse ? 1.0 - (mapValue * mapValue * mapValue) : (mapValue * mapValue * mapValue));
+		//mapValue = (mapInverse ? 1.0 - mapValue : mapValue);
+
+		// Apply height and inclination if required
+		if (grassPlacingMode == 5)
+		{
+			mapValue *= (LBEvaluateWideRangeCurve(LBInverseLerp(minH, maxH, heightN)) * LBEvaluateWideRangeCurve(LBInverseLerp(minI, maxI, angle)));
+		}
+
+		detailFactor = mapValue;
+	}
+
+	if (detailFactor > 0.0 && useNoise)
+	{
+		// Get a perlin noise value for this point in the landscape (worldspace position)
+		float2 coords = float2(terrainWorldPos.x + (terrainWidth * posN.x), terrainWorldPos.z + (terrainLength * posN.y));
+		float noiseValue = abs((LBPerlinFractalNoise(coords.x / noiseTileSize, coords.y / noiseTileSize, noiseOctaves) * grassNoiseMultiplier) - 0.5) * 4.0;
+
+        // If the noise value is less than (1 - grass cutoff value) set the grass density to 0
+        if (noiseValue < 1.0 - grassPlacementCutoff) { detailFactor = 0.0; }
+	}
+
+	if (grassDontFade)
+	{
+		// Restrict grass density to "on" or "off"
+		if (detailFactor > 0.01) { detailFactor = 1.0; }
+		else { detailFactor = 0.0; }
+	}
+
+	// Check filters
+	bool includePoint = (detailFactor > 0.001 ? true : false);
+	bool includePointCurrentFilter = false;
+
+	// Check Area filters
+	if (detailFactor > 0.0 && isAreaFilters)
+	{
+		// Instead of using a break, set detailFactor to 0.0 to force exit from for-loop.
+		for (uint fIdx = 0; fIdx < numlbFilters && detailFactor > 0.001; fIdx++)
+		{
+			// Is this an Area Filter?
+			if (lbFilters[fIdx].csfilterType == 4)
+			{
+				if (landscapePos2DM.x >= lbFilters[fIdx].areaRect.x && landscapePos2DM.x <= lbFilters[fIdx].areaRect.z &&
+					landscapePos2DM.y >= lbFilters[fIdx].areaRect.y && landscapePos2DM.y <= lbFilters[fIdx].areaRect.w)
+				{
+					includePointCurrentFilter = true;
+				}
+				else
+				{
+					includePointCurrentFilter = false;
+				}
+
+				if (lbFilters[fIdx].filterMode == 0) // AND
+				{
+					if (includePointCurrentFilter)
+					{
+						if (fIdx == 0) { includePoint = true; }
+						else
+						{
+							// If the point has been included with a previous filter it will still be included
+							// and we don't need to do anything here.
+
+							// Because this an AND, if it hasn't already been included by another filter, it
+							// will never be included.
+							if (!includePoint) { detailFactor = 0.0; }
+						}
+					}
+					// With the AND operator, if this point is not in the area we should not texture it
+					else { includePoint = false; detailFactor = 0.0; }
+				}
+				else if (lbFilters[fIdx].filterMode == 2) // NOT
+				{
+					if (!includePointCurrentFilter) { includePoint = true; }
+					else { includePoint = false; detailFactor = 0.0; }
+				}
+
+				// If using Filter1 OR Filter 2 OR.. any "hit" will satisfy the criteria and there is no need
+				// to test any other area filters.
+				else if (includePointCurrentFilter && lbFilters[fIdx].filterMode == 1) // OR
+				{
+					includePoint = true;
+				}
+			}
+		}
+	}
+
+	// Check Stencil filters
+	if (detailFactor > 0.0 && isStencilLayerFilters)
+	{
+		// Instead of using a break, set detailFactor to 0.0 to force exit from for-loop.
+		for (uint fIdx = 0; fIdx < numlbFilters && detailFactor > 0.001; fIdx++)
+		{
+			// Ignore filters that are not Stencil Layer filters
+			if (lbFilters[fIdx].csfilterType != 3) { continue; }
+
+			float stencilLayerPixel = GetStencilLayerPoint(landscapePos2DN, lbFilters[fIdx].stencilLayerResolution, lbFilters[fIdx].stencilLayerTex2DArrIdx);
+			int filterMode = (int)lbFilters[fIdx].filterMode;
+
+			// Combine checking for AND and NOT conditions where we want to exit the loop without including this point
+			if ((filterMode == 0 && stencilLayerPixel <= 0.0) || (filterMode == 2 && stencilLayerPixel >= 65535.0)) { detailFactor = 0.0; break; }
+			else if (filterMode == 0) // AND
+			{
+				// Lerp between 0 and detailFactor
+				detailFactor = lerp(0.0, detailFactor, stencilLayerPixel / 65535.0);
+			}
+			else if (filterMode == 2) // NOT
+			{
+				// Lerp between detailFactor and 0 (reverse of the AND blending)
+				detailFactor = lerp(detailFactor, 0.0, stencilLayerPixel / 65535.0);
+			}
+		}
+
+		//includePoint = (detailFactor > 0.001 ? true : false);
+	}
+
+	// TODO Check Texture filters (currently not supported)
+
+	if (detailFactor > 0.0) { detailDensityMap[(detailWidth * pos.y) + pos.x] = round(RandomRange(minDensity, maxDensity, landscapePos2DN) * detailFactor); }
+	else { detailDensityMap[(detailWidth * pos.y) + pos.x] = 0; }
+}

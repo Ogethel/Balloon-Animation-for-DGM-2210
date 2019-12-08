@@ -1,0 +1,507 @@
+﻿// Landscape Builder. Copyright (c) 2016-2019 SCSM Pty Ltd. All rights reserved.
+#pragma kernel PathCreateMap
+#pragma kernel PathTopo
+#pragma kernel ObjPathTopo
+#pragma kernel ObjPathSmooth
+#pragma kernel CopyHeightsOutToIn
+
+#define LB_PATH_NUM_THREADS 16
+#define LB_CPY_NUM_THREADS 256
+
+// Landscape variables
+float3 landscapePos;
+float2 landscapeSize;
+
+// Terrain variables (used in PathTopo)
+float terrainWidth;
+float terrainLength;
+float3 terrainWorldPos;
+// Used only in ObjPathT opo
+float terrainHeight;
+
+// Map Texture
+RWTexture2D<float4> mapTex;
+uint mapTexWidth;
+uint mapTexHeight;
+
+// Path variables
+float maxWidth;
+bool checkEdges;
+bool blendEnds;
+bool blendStart;
+bool blendEnd;
+bool removeCentre;
+float edgeBlendWidth;
+float sqrblendEdgeWidth;
+float sqrborderLeftWidth;
+float sqrborderRightWidth;
+float4 pathBounds;
+float surroundSmoothing;
+float blendTerrainHeight;
+
+// Used in PathTopo and ObjPathTopo
+float heightScale;
+
+// Layer variables (used in PathTopo)
+float minHeight;
+uint typeMode;
+float invertMultipler;  // 1.0 or -1.0 (invert)
+
+// Curves (used in PathTopo)
+uint blendCurveNumKeys;
+StructuredBuffer<float4> blendCurve;
+uint heightCurveNumKeys;
+StructuredBuffer<float4> heightCurve;
+
+// Heightmap variables used in PathTopo
+RWStructuredBuffer<float> heightsIn;
+RWStructuredBuffer<float> heightsOut;
+
+#include "LBCGCalc.cginc"
+#include "LBCGPath.cginc"
+
+// Given a centre interpolated path point, the XZ distance of the world position to that path point, the path width at that point
+// and some data about how to do the blending, calculates a blend amount for that world position (for path height calculations)
+float CalculatePathHeightBlendAmount(float3 centreInterpolatedPathPt, float hmapWorldPosToInterpolatedDist, float fullPathWidth,
+	bool blendEnds, bool blendStart, bool blendEnd, float edgeBlendWidth)
+{
+	// Only blend if we are within the BlendEdgeWidth distance
+	float worldPosDistFromEdge = (fullPathWidth / 2.0) - hmapWorldPosToInterpolatedDist;
+	float blendAmount = LBEvaluate(min(worldPosDistFromEdge / edgeBlendWidth, 1.0), blendCurve, blendCurveNumKeys);
+
+	// START/END BLENDING NOTE: If the path length < 2 x blend Edge Width, the results may be a little unpredictable
+
+	// Get the distance to the ends of the path
+	float worldPosDistToStart = length(centreInterpolatedPathPt.xz - splinePointsCentre[0].xz);
+	float worldPosDistToEnd = length(centreInterpolatedPathPt.xz - splinePointsCentre[numSplineCentrePoints - 1].xz);
+
+	// Get some integers to act as bools for whether we will blend each end
+	// If we are going to blend the end, the value will be 0, otherwise it will be 1
+	// This value is fed later into a max function, so if the value is 1 it will override whatever else is in the max function
+	int isNotBlendStartInt = (int)!(blendEnds && blendStart);
+	int isNotBlendEndInt = (int)!(blendEnds && blendEnd);
+
+	// If we need to blend, multiply the current blend amount by the start/end blend amount
+	blendAmount *= min(max(worldPosDistToStart / edgeBlendWidth, isNotBlendStartInt), 1.0);
+	blendAmount *= min(max(worldPosDistToEnd / edgeBlendWidth, isNotBlendEndInt), 1.0);
+
+	return blendAmount;
+}
+
+[numthreads(LB_PATH_NUM_THREADS, LB_PATH_NUM_THREADS, 1)]
+void PathCreateMap(uint3 id : SV_DispatchThreadID)
+{
+	// In non-compute the colour can be lerped between clear and white.
+	// In the compute shader we store as a value between 0.0 and 1.0,
+	// which is converted into a grayscale colour to update the pixel.
+	float blendColour = 0.0;
+
+	float mapTexWidthLess1F = float(mapTexWidth) - 1.0;
+	float mapTexHeightLess1F = float(mapTexHeight) - 1.0;
+
+	// Get the uv position in the map texture
+	float2 tex2DN = float2((float)id.x / mapTexWidthLess1F, (float)id.y / mapTexHeightLess1F);
+
+	// Get the worldspace position of this map pixel
+	float3 mapWorldPos3D = float3(landscapePos.x + (landscapeSize.x * tex2DN.x), 0.0, landscapePos.z + (landscapeSize.y * tex2DN.y));
+
+	// Ignore anything outside the bounding box of the MapPath
+	if (mapWorldPos3D.x >= pathBounds.x && mapWorldPos3D.x <= pathBounds.z && mapWorldPos3D.z >= pathBounds.y && mapWorldPos3D.z <= pathBounds.w)
+	{
+		float3 quadP1;
+		float3 quadP2;
+		float3 quadP3;
+		float3 quadP4;
+		uint widthPoint;
+		uint firstMatchPtIdx;
+		uint secondMatchPtIdx;
+
+		// Check if the point is in the path, and if so find what segment it is in
+		if (IsPointInPath(mapWorldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+		{
+			// Declare variables to pass into GetCentreInterpolatedPathPoint function as out variables
+			float centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth;
+			// Get centre interpolated path point and related data
+			float3 centreInterpolatedPathPt = GetCentreInterpolatedPathPoint(mapWorldPos3D, firstMatchPtIdx, secondMatchPtIdx,
+				centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth);
+
+			// Calculate blend colour
+
+			// Only blend if we are within the BlendEdgeWidth distance
+			float worldPosDistFromEdge = (fullPathWidth / 2.0) - hmapWorldPosToInterpolatedDist;
+			blendColour = min(worldPosDistFromEdge / edgeBlendWidth, 1.0);
+
+			// START/END BLENDING NOTE: If the path length < 2 x blend Edge Width, the results may be a little unpredictable
+
+			// Get the distance to the ends of the path
+			float worldPosDistToStart = length(centreInterpolatedPathPt.xz - splinePointsCentre[0].xz);
+			float worldPosDistToEnd = length(centreInterpolatedPathPt.xz - splinePointsCentre[numSplineCentrePoints - 1].xz);
+
+			// Get some integers to act as bools for whether we will blend each end
+			// If we are going to blend the end, the value will be 0, otherwise it will be 1
+			// This value is fed later into a max function, so if the value is 1 it will override whatever else is in the max function
+			int isNotBlendStartInt = (int)!(blendEnds && blendStart);
+			int isNotBlendEndInt = (int)!(blendEnds && blendEnd);
+
+			// If we need to blend, multiply the current blend amount by the start/end blend amount
+			blendColour *= min(max(worldPosDistToStart / edgeBlendWidth, isNotBlendStartInt), 1.0);
+			blendColour *= min(max(worldPosDistToEnd / edgeBlendWidth, isNotBlendEndInt), 1.0);
+		}
+	}
+
+	// Use the same values for RGB. Then when sampling the texture as grayscale or each channel, it will look fine
+	if (blendColour > 0.0) { mapTex[id.xy] = float4(blendColour, blendColour, blendColour, 1.0); }
+	else { mapTex[id.xy] = float4(0.0, 0.0, 0.0, 0.0); }
+}
+
+// Topo MapPath
+[numthreads(LB_PATH_NUM_THREADS, LB_PATH_NUM_THREADS, 1)]
+void PathTopo(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_PATH_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(hmapRes - 1) || id.y > uint(hmapRes - 1)) { return; }
+
+	// Get 1D index in heightsIn and heightsOut
+	int hIdx = (id.y * hmapRes) + id.x;
+
+	// To reduce branching set default value
+	float heightOut = heightsIn[hIdx];
+
+	// Get world position of heightmap point (calculate base x,y only once)
+	// This will be used for Map Path which are actual world positions
+	// Terrain Position in metres + terrain world-space position
+	float3 hmapWorldPos3D = float3(((float)id.x / (float)(hmapRes - 1) * terrainWidth) + terrainWorldPos.x, 0.0, ((float)id.y / (float)(hmapRes - 1) * terrainLength) + terrainWorldPos.z);
+
+	float3 quadP1;
+	float3 quadP2;
+	float3 quadP3;
+	float3 quadP4;
+	uint widthPoint;
+	uint firstMatchPtIdx;
+	uint secondMatchPtIdx;
+
+	// Check if the point is in the path, and if so find what segment it is in
+	if (IsPointInPath(hmapWorldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+	{
+		// Declare variables to pass into GetCentreInterpolatedPathPoint function as out variables
+		float centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth;
+		// Get centre interpolated path point and related data
+		float3 centreInterpolatedPathPt = GetCentreInterpolatedPathPoint(hmapWorldPos3D, firstMatchPtIdx, secondMatchPtIdx,
+			centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth);
+
+		// Calculate blend amount
+		float blendAmount = CalculatePathHeightBlendAmount(centreInterpolatedPathPt, hmapWorldPosToInterpolatedDist, fullPathWidth,
+			blendEnds, blendStart, blendEnd, edgeBlendWidth);
+
+		float heightSum = 0.0;
+
+		// Get the left and right spline points
+		float3 splineLeftPoint = lerp(quadP1, quadP2, centreNormalisedPos);
+		float3 splineRightPoint = lerp(quadP3, quadP4, centreNormalisedPos);
+		// Get the square distance from the world position to the left and right spline points
+		// We just want to use this for a comparison to see which is closer
+		float sqrDistLeft = PlanarSquareDistance(hmapWorldPos3D, splineLeftPoint);
+		float sqrDistRight = PlanarSquareDistance(hmapWorldPos3D, splineRightPoint);
+
+		// This is the distance from the edge of the flattened path, not the distance from the edge of the blended surrounds
+		// distFromEdge is a 0-0.5 value
+		float distFromEdge = ((fullPathWidth * 0.5) - hmapWorldPosToInterpolatedDist) / (fullPathWidth * 0.5);
+		// If this is outside the path in the blended surroundings, clamp it to 0-1 range
+		distFromEdge = saturate(distFromEdge);
+
+		// LBLayer.LayerTypeMode Add = 0, Set = 5, Flatten = 10
+
+		// SET the min and max height of the path in the topography based.
+		if (typeMode == 5)
+		{
+			// Left side
+			if (sqrDistLeft < sqrDistRight)
+			{
+				heightSum = lerp(minHeight, heightScale, LBEvaluate(distFromEdge * 0.5, heightCurve, heightCurveNumKeys));
+			}
+			// Right side
+			else
+			{
+				heightSum = lerp(minHeight, heightScale, LBEvaluate(1.0 - (distFromEdge * 0.5), heightCurve, heightCurveNumKeys));
+			}
+			// Blend between the original topography height and the set height
+			heightOut = lerp(heightOut, heightSum, blendAmount);
+		}
+		// ADD (or subtract) a number of metres from the topography along the path
+		else if (typeMode == 0)
+		{
+			// Left side
+			if (sqrDistLeft < sqrDistRight)
+			{
+				heightSum = lerp(0.0, blendAmount * heightScale, LBEvaluate(distFromEdge * 0.5, heightCurve, heightCurveNumKeys));
+			}
+			// Right side
+			else
+			{
+				heightSum = lerp(0.0, blendAmount * heightScale, LBEvaluate(1.0 - (distFromEdge * 0.5), heightCurve, heightCurveNumKeys));
+			}
+
+			// Subtract or add the blended height
+			// To avoid a if branch, use a multiplier instead
+			heightOut += heightSum * invertMultipler;
+		}
+		// Flatten the topography along the path
+		else if (typeMode == 10)
+		{
+			// Objective: Get the height at the centrespline perpendicular to the current heightmap point
+
+			// Get points from the array so only have to lookup once
+			float3 firstMatchCentrePt = splinePointsCentre[firstMatchPtIdx];
+			float3 secondMatchCentrePt = splinePointsCentre[secondMatchPtIdx];
+
+			// Get the normalised (0-1) position on the terrain on the path centre spline adjacent to the current heightmap point
+			float normXPos = LBInverseLerp(terrainWorldPos.x, terrainWorldPos.x + terrainWidth, centreInterpolatedPathPt.x);
+			float normZPos = LBInverseLerp(terrainWorldPos.z, terrainWorldPos.z + terrainWidth, centreInterpolatedPathPt.z);
+
+			// Get the height at the centre spline point on the terrain (0-1)
+			float heightAtCentreSpline = LBGetInterpolatedHeightN(float2(normXPos, normZPos), heightsIn);
+
+			// Calculate min/max heights
+			float minHeightFlatten = heightAtCentreSpline - (heightScale * 0.5);
+			float maxHeightFlatten = heightAtCentreSpline + (heightScale * 0.5);
+
+			// evaluate the height curve
+			// Left side
+			if (sqrDistLeft < sqrDistRight)
+			{
+				heightSum = LBEvaluate(distFromEdge * 0.5, heightCurve, heightCurveNumKeys);
+			}
+			// Right side
+			else
+			{
+				heightSum = LBEvaluate(1.0 - (distFromEdge * 0.5), heightCurve, heightCurveNumKeys);
+			}
+
+			// Calculate actual height by lerping between min and max heights
+			heightOut = lerp(heightOut, lerp(minHeightFlatten, maxHeightFlatten, heightSum), blendAmount);
+		}
+	}
+
+	heightsOut[hIdx] = heightOut;
+}
+
+// Groups - ObjPath Surface
+[numthreads(LB_PATH_NUM_THREADS, LB_PATH_NUM_THREADS, 1)]
+void ObjPathTopo(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_PATH_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(hmapRes - 1) || id.y > uint(hmapRes - 1)) { return; }
+
+	// Get 1D index in heightsIn and heightsOut
+	int hIdx = (id.y * hmapRes) + id.x;
+
+	// To reduce branching set default value
+	float heightOut = heightsIn[hIdx];
+
+	// Get world position of heightmap point (calculate base x,y only once)
+	// This will be used for Object Path which are actual world positions
+	// Landscape Position in metres + landscape world-space position
+	float3 hmapWorldPos3D = float3(((float)id.x / (float)(hmapRes - 1) * landscapeSize.x) + landscapePos.x, 0.0, ((float)id.y / (float)(hmapRes - 1) * landscapeSize.y) + landscapePos.z);
+
+	// Ignore anything outside the bounding box of the Object Path
+	if (hmapWorldPos3D.x >= pathBounds.x && hmapWorldPos3D.x <= pathBounds.z && hmapWorldPos3D.z >= pathBounds.y && hmapWorldPos3D.z <= pathBounds.w)
+	{
+		float3 quadP1;
+		float3 quadP2;
+		float3 quadP3;
+		float3 quadP4;
+		uint widthPoint;
+		uint firstMatchPtIdx;
+		uint secondMatchPtIdx;
+
+		// Check if the point is in the path, and if so find what segment it is in
+		if (IsPointInPath(hmapWorldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+		{
+			// Declare variables to pass into GetCentreInterpolatedPathPoint function as out variables
+			float centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth;
+			// Get centre interpolated path point and related data
+			float3 centreInterpolatedPathPt = GetCentreInterpolatedPathPoint(hmapWorldPos3D, firstMatchPtIdx, secondMatchPtIdx,
+				centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth);
+
+			// Flatten the topography along the path
+
+			// Objective: Get the height at the centrespline perpendicular to the current heightmap point
+
+			// Get points from the array so only have to lookup once
+			float3 firstMatchCentrePt = splinePointsCentre[firstMatchPtIdx];
+			float3 secondMatchCentrePt = splinePointsCentre[secondMatchPtIdx];
+
+			// Get the normalised (0-1) position on the landscape on the path centre spline adjacent to the current heightmap point
+			float normXPos = LBInverseLerp(landscapePos.x, landscapePos.x + landscapeSize.x, centreInterpolatedPathPt.x);
+			float normZPos = LBInverseLerp(landscapePos.z, landscapePos.z + landscapeSize.y, centreInterpolatedPathPt.z);
+
+			// Get the height at the centre spline point on the terrain (0-1)
+			float heightAtCentreSpline = LBGetInterpolatedHeightN(float2(normXPos, normZPos), heightsIn);
+
+			// Get flatten height from the centre point of the spline adjacent to the current point.
+			float firstMatchCentrePtHeightM = (firstMatchCentrePt.y - landscapePos.y);
+			float secondMatchCentrePtHeightM = (secondMatchCentrePt.y - landscapePos.y);
+
+			centreInterpolatedPathPt.y = lerp(firstMatchCentrePtHeightM, secondMatchCentrePtHeightM, centreNormalisedPos) / terrainHeight;
+
+			// If required add on the terrain height. This is required when using clearing groups
+			// blendTerrainHeight will be 1.0 for clearings, or 0.0 for uniform groups
+			centreInterpolatedPathPt.y += (heightAtCentreSpline * blendTerrainHeight);
+
+			// Get the left and right spline points
+			float3 splineLeftPoint = lerp(quadP1, quadP2, centreNormalisedPos);
+			float3 splineRightPoint = lerp(quadP3, quadP4, centreNormalisedPos);
+			// Get the square distance from the world position to the left and right spline points
+			// We just want to use this for a comparison to see which is closer
+			float sqrDistLeft = PlanarSquareDistance(hmapWorldPos3D, splineLeftPoint);
+			float sqrDistRight = PlanarSquareDistance(hmapWorldPos3D, splineRightPoint);
+
+			// This is the distance from the edge of the flattened path, not the distance from the edge of the blended surrounds
+			// distFromEdge is a 0-1 value
+			float halfCorePathWidth = (fullPathWidth * 0.5) - edgeBlendWidth;
+			float distFromEdge = (halfCorePathWidth - hmapWorldPosToInterpolatedDist) / halfCorePathWidth;
+			// If this is outside the path in the blended surroundings, clamp it to 0-1 range
+			distFromEdge = saturate(distFromEdge);
+
+			float heightSum = 0.0;
+
+			// Evaluate the height curve to determine whether we will raise or lower this point, and by how much
+			// HeightSum = 0.5 means we will stay at the path height
+			// HeightSum < 0.5 means we will lower the terrain
+			// HeightSum > 0.5 means we will raise the terrain
+			// Left side
+			if (sqrDistLeft < sqrDistRight)
+			{
+				heightSum = LBEvaluate(distFromEdge * 0.5, heightCurve, heightCurveNumKeys);
+			}
+			// Right side
+			else
+			{
+				heightSum = LBEvaluate(1.0 - (distFromEdge * 0.5), heightCurve, heightCurveNumKeys);
+			}
+
+			// Calculate blend amount
+			float blendAmount = CalculatePathHeightBlendAmount(centreInterpolatedPathPt, hmapWorldPosToInterpolatedDist, fullPathWidth,
+				blendEnds, blendStart, blendEnd, edgeBlendWidth);
+
+			// Calculate min/max heights
+			float minHeightFlatten = centreInterpolatedPathPt.y - heightScale;
+			float maxHeightFlatten = centreInterpolatedPathPt.y + heightScale;
+
+			// Calculate actual height by lerping between min and max heights while
+			// applying any blending with the surroundings if outside the actual flattened path
+			heightOut = lerp(heightOut, lerp(minHeightFlatten, maxHeightFlatten, heightSum), blendAmount);
+		}		
+	}
+
+	heightsOut[hIdx] = heightOut;
+}
+
+[numthreads(LB_PATH_NUM_THREADS, LB_PATH_NUM_THREADS, 1)]
+void ObjPathSmooth(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_PATH_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(hmapRes - 1) || id.y > uint(hmapRes - 1)) { return; }
+
+	// Get 1D index in heightsIn and heightsOut
+	int hIdx = (id.y * hmapRes) + id.x;
+
+	// To reduce branching set default value
+	float heightOut = heightsIn[hIdx];
+
+	// Get world position of heightmap point (calculate base x,y only once)
+	// This will be used for Object Path which are actual world positions
+	// Landscape Position in metres + landscape world-space position
+	float3 hmapWorldPos3D = float3(((float)id.x / (float)(hmapRes - 1) * landscapeSize.x) + landscapePos.x, 0.0, ((float)id.y / (float)(hmapRes - 1) * landscapeSize.y) + landscapePos.z);
+
+	// Ignore anything outside the bounding box of the Object Path
+	if (hmapWorldPos3D.x >= pathBounds.x && hmapWorldPos3D.x <= pathBounds.z && hmapWorldPos3D.z >= pathBounds.y && hmapWorldPos3D.z <= pathBounds.w)
+	{
+		float3 quadP1;
+		float3 quadP2;
+		float3 quadP3;
+		float3 quadP4;
+		uint widthPoint;
+		uint firstMatchPtIdx;
+		uint secondMatchPtIdx;
+
+		if (IsPointInPath(hmapWorldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+		{
+			// How far away from the edge is this point?
+			float sqrDistLeft = PlanarSquareDistance(hmapWorldPos3D, quadP1);
+			float sqrDistRight = PlanarSquareDistance(hmapWorldPos3D, quadP3);
+			float sqrPixelDistFromEdge = 0.0;
+
+			// Left side
+			if (sqrDistLeft < sqrDistRight)
+			{
+				// What is the distance from this point to the left edge?
+				sqrPixelDistFromEdge = abs(SquareDistanceToSide(quadP1, quadP2, hmapWorldPos3D));
+			}
+			// Right side
+			else
+			{
+				// What is the distance from this point to the right edge?
+				sqrPixelDistFromEdge = abs(SquareDistanceToSide(quadP3, quadP4, hmapWorldPos3D));
+			}
+
+			// Get width of the path at the nearest spline point
+			//float pathWidthAtPoint = GetWidthOnSpline(widthPoint);
+
+			// Get the squared spline width at this point (current at closest point). Does not include the width of the surroundings
+			float sqrPathWidthAtPoint = PlanarSquareDistance(splinePointsLeft[widthPoint], splinePointsRight[widthPoint]) - sqrblendEdgeWidth;
+
+			// Only smooth surroundings plus a small amount of the path edge - i.e. if we are within the BlendEdgeWidth distance
+			if (sqrPixelDistFromEdge <= sqrblendEdgeWidth + (sqrPathWidthAtPoint * 0.05))
+			{
+				// Get min-max indices for this smoothing range
+				int blockXMin = id.x - 3;
+				int blockXMax = id.x + 3;
+				int blockYMin = id.y - 3;
+				int blockYMax = id.y + 3;
+
+				// Clamp min-max indices for this block to within the landscape
+				if (blockXMin < 0) { blockXMin = 0; }
+				if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+				if (blockYMin < 0) { blockYMin = 0; }
+				if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+				// Reset height total
+				float totalHeight = 0.0;
+
+				int2 landscapePos2D = int2(id.x, id.y);
+
+				int px, py;
+				for (uint pxy = 0; pxy < 50; pxy++)
+				{
+					px = int(pxy % 7) - 3;
+					py = int(pxy / 7) - 3;
+					totalHeight += heightsIn[((landscapePos2D.y + py) * hmapRes) + landscapePos2D.x + px] *
+						(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+				}
+
+				// Average height values and then set this average height to the temp heightmap
+				heightOut = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+			}
+		}
+	}
+
+	heightsOut[hIdx] = heightOut;
+}
+
+// Copy the output back into the input buffer
+[numthreads(LB_CPY_NUM_THREADS, 1, 1)]
+void CopyHeightsOutToIn(uint3 id : SV_DispatchThreadID)
+{
+	// The landscape-wide heightmap resolution is 2^n + 1 so there will not be an
+	// exact number of batches per heightmap.
+	if (id.x > uint((hmapRes * hmapRes) - 1)) { return; }
+	// It's probably faster to copy everything than checking bounds of the path
+	heightsIn[id.x] = heightsOut[id.x];
+}

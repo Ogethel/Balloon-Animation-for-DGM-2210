@@ -1,0 +1,1030 @@
+﻿// Landscape Builder. Copyright (c) 2016-2018 SCSM Pty Ltd. All rights reserved.
+#pragma kernel ThermalErosion
+#pragma kernel SmoothingPR1
+#pragma kernel SmoothingPR2
+#pragma kernel SmoothingPR3
+#pragma kernel SmoothingPR4
+#pragma kernel SmoothingPR5
+#pragma kernel CopyTerrainToHeights
+#pragma kernel CopyHeightsToTerrain
+
+#define LB_TE_NUM_THREADS 1
+#define LB_SM_NUM_THREADS 16
+#define LB_CPY_NUM_THREADS 256
+
+// Landscape variables
+float3 landscapePos;
+float2 landscapeSize;
+
+// Terrain variables
+float terrainWidth;
+float terrainLength;
+float3 terrainWorldPos;
+int terrainhmapRes;
+RWStructuredBuffer<float> heightsOut;
+
+// Landscape Heightmap variables
+int hmapRes;
+int hmapRow; // used in ThermalErosion
+RWStructuredBuffer<float> heights;
+
+// Stencil Layers
+uint numStencilLayers;
+int stencilLayerResolution;
+
+// Smoothing variables
+uint smoothingFilterMode; // 0 = AND, 2 = NOT
+
+// Thermal Erosion varibles
+uint teFilterMode; // 0 = AND, 2 = NOT
+float tetalusHeightDiff;
+float teErosionStrength;
+
+#include "LBCGStencil.cginc"
+
+
+[numthreads(LB_TE_NUM_THREADS, 1, 1)]
+void ThermalErosion(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	//if (id.x > uint(hmapRes - 1)) { return; }
+
+	// Get the 1D landscape-scoped index in the heights buffer
+	int hLSIdx = (hmapRow * hmapRes) + id.x;
+
+	// Get landscape position
+	uint2 landscapePos2D = uint2(id.x, (uint)hmapRow);
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2((float)landscapePos2D.x / float(hmapRes - 1), (float)landscapePos2D.y / float(hmapRes - 1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	if (!(numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && teFilterMode == 0) || (stencilLayerBlend > 0.9999 && teFilterMode == 2))))
+	{
+		float totalHeightDifference = 0.0;
+		float maxHeightDifference = 0.0;
+		float thisHeight = heights[hLSIdx];
+
+		float heightDiff1 = 0.0;
+		float heightDiff2 = 0.0;
+		float heightDiff3 = 0.0;
+		float heightDiff4 = 0.0;
+		float heightDiff5 = 0.0;
+		float heightDiff6 = 0.0;
+		float heightDiff7 = 0.0;
+		float heightDiff8 = 0.0;
+
+		// CALCULATE TOTAL HEIGHTS
+
+		// Calc totals using landscape-scoped heightmap
+		// Loop through 8 neighbours
+		// 1. Find height difference relative to talus height for each neighbour
+		// 2. Find max height difference
+		// 3. Find the total height difference
+		// Height difference only counts neighbours which are more than the talus
+		// height below the current cell
+
+		// Left column
+		if (landscapePos2D.x > 0)
+		{
+			// Bottom-left neighbour
+			if (landscapePos2D.y > 0)
+			{
+				// Get height difference relative to talus height
+				heightDiff1 = thisHeight - heights[hLSIdx - hmapRes - 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff1 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff1 > maxHeightDifference) { maxHeightDifference = heightDiff1; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff1;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff1 = 0.0; }
+			}
+			// Top-left neighbour
+			if (landscapePos2D.y < uint(hmapRes - 1))
+			{
+				// Get height difference relative to talus height
+				heightDiff2 = thisHeight - heights[hLSIdx + hmapRes - 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff2 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff2 > maxHeightDifference) { maxHeightDifference = heightDiff2; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff2;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff2 = 0.0; }
+			}
+			// Centre-left neighbour
+			// Get height difference relative to talus height
+			heightDiff3 = thisHeight - heights[hLSIdx - 1] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff3 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff3 > maxHeightDifference) { maxHeightDifference = heightDiff3; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff3;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff3 = 0.0; }
+		}
+
+		// Right column
+		if (landscapePos2D.x < uint(hmapRes - 1))
+		{
+			// Bottom-right neighbour
+			if (landscapePos2D.y > 0)
+			{
+				// Get height difference relative to talus height
+				heightDiff4 = thisHeight - heights[hLSIdx - hmapRes + 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff4 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff4 > maxHeightDifference) { maxHeightDifference = heightDiff4; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff4;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff4 = 0.0; }
+			}
+			// Top-right neighbour
+			if (landscapePos2D.y < uint(hmapRes - 1))
+			{
+				// Get height difference relative to talus height
+				heightDiff5 = thisHeight - heights[hLSIdx + hmapRes + 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff5 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff5 > maxHeightDifference) { maxHeightDifference = heightDiff5; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff5;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff5 = 0.0; }
+			}
+			// Centre-right neighbour
+			// Get height difference relative to talus height
+			heightDiff6 = thisHeight - heights[hLSIdx + 1] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff6 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff6 > maxHeightDifference) { maxHeightDifference = heightDiff6; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff6;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff6 = 0.0; }
+		}
+		// Middle column
+		// Bottom-centre neighbour
+		if (landscapePos2D.y > 0)
+		{
+			// Get height difference relative to talus height
+			heightDiff7 = thisHeight - heights[hLSIdx - hmapRes] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff7 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff7 > maxHeightDifference) { maxHeightDifference = heightDiff7; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff7;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff7 = 0.0; }
+		}
+		// Top-centre neighbour
+		if (landscapePos2D.y < uint(hmapRes - 1))
+		{
+			// Get height difference relative to talus height
+			heightDiff8 = thisHeight - heights[hLSIdx + hmapRes] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff8 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff8 > maxHeightDifference) { maxHeightDifference = heightDiff8; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff8;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff8 = 0.0; }
+		}
+
+		// DISTRIBUTE HEIGHTS
+
+		// If material slippage should occur, distribute the difference in height between
+		// this cell and the lowest neighbouring cell between its lower neighbours
+		// The amount of distributed material is proportional to the height difference
+		if (totalHeightDifference > 0.0)
+		{
+			// Scale the height difference based on user-chosen erosion strength
+			// Also halve the value as we want to remove half the difference from this cell
+			// to equalise it with its neighbours
+			maxHeightDifference *= teErosionStrength * 0.5;
+
+			// If applicable, apply the stencil blending
+			if (numStencilLayers > 0)
+			{
+				// Might also need to adjust to totalHeightDifference and avoid div0
+				if (teFilterMode == 0) // AND
+				{
+					// Lerp between 0 and maxHeightDifference
+					maxHeightDifference *= stencilLayerBlend;
+				}
+				else // Assume NOT
+				{
+					// Lerp between maxHeightDifference and 0
+					// Mathf.LerpUnclamped(a,b,t) same as: a + (b - a) * t
+					maxHeightDifference *= (1.0 - stencilLayerBlend);
+				}
+			}
+
+			// Remove the material from this cell
+			heights[hLSIdx] -= maxHeightDifference;
+
+			// Add the material to the neighbouring cells
+
+			// This scalar is calculated now for performance
+			// Full equation is: 
+			// height += maxHeightDifference * (heightDiffX / totalHeightDifference)
+			float heightDifferenceScalar = maxHeightDifference / totalHeightDifference;
+
+			// Loop through 8 neighbours
+			// Add the height difference that is proportional to its own height difference
+
+			// Left column
+			if (landscapePos2D.x > 0)
+			{
+				// Bottom-left neighbour
+				if (landscapePos2D.y > 0)
+				{
+					heights[hLSIdx - hmapRes - 1] += heightDiff1 * heightDifferenceScalar;
+				}
+				// Top-left neighbour
+				if (landscapePos2D.y < uint(hmapRes - 1))
+				{
+					heights[hLSIdx + hmapRes - 1] += heightDiff2 * heightDifferenceScalar;
+				}
+				// Centre-left neighbour
+				heights[hLSIdx - 1] += heightDiff3 * heightDifferenceScalar;
+			}
+			// Right column
+			if (landscapePos2D.x < uint(hmapRes - 1))
+			{
+				// Bottom-right neighbour
+				if (landscapePos2D.y > 0)
+				{
+					heights[hLSIdx - hmapRes + 1] += heightDiff4 * heightDifferenceScalar;
+				}
+				// Top-right neighbour
+				if (landscapePos2D.y < uint(hmapRes - 1))
+				{
+					heights[hLSIdx + hmapRes + 1] += heightDiff5 * heightDifferenceScalar;
+				}
+				// Centre-right neighbour
+				heights[hLSIdx + 1] += heightDiff6 * heightDifferenceScalar;
+			}
+			// Middle column
+			// Bottom-centre neighbour
+			if (landscapePos2D.y > 0)
+			{
+				heights[hLSIdx - hmapRes] += heightDiff7 * heightDifferenceScalar;
+			}
+			// Top-centre neighbour
+			if (landscapePos2D.y < uint(hmapRes - 1))
+			{
+				heights[hLSIdx + hmapRes] += heightDiff8 * heightDifferenceScalar;
+			}
+		}
+	}
+}
+
+//[numthreads(LB_TE_NUM_THREADS,LB_TE_NUM_THREADS,1)]
+void ThermalErosion_old (uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get the 1D terrain-scoped index in the heightsOut buffer
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes - 1), landscapePos2DN.y * (hmapRes - 1));
+
+	// Get the 1D landscape-scoped index in the heights buffer
+	int hLSIdx = landscapePos2D.y * hmapRes + landscapePos2D.x;
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (!(numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && teFilterMode == 0) || (stencilLayerBlend > 0.9999 && teFilterMode == 2))))
+	//{
+	//	heightsOut[hIdx] = heights[hLSIdx];
+	//}
+	//else
+	{
+		float totalHeightDifference = 0.0;
+		float maxHeightDifference = 0.0;
+		float thisHeight = heights[hLSIdx];
+
+		//int x = (int)id.x;
+		//int y = (int)id.y;
+
+		float heightDiff1 = 0.0;
+		float heightDiff2 = 0.0;
+		float heightDiff3 = 0.0;
+		float heightDiff4 = 0.0;
+		float heightDiff5 = 0.0;
+		float heightDiff6 = 0.0;
+		float heightDiff7 = 0.0;
+		float heightDiff8 = 0.0;
+
+		// CALCULATE TOTAL HEIGHTS
+
+		// Calc totals using landscape-scoped heightmap
+		// Loop through 8 neighbours
+		// 1. Find height difference relative to talus height for each neighbour
+		// 2. Find max height difference
+		// 3. Find the total height difference
+		// Height difference only counts neighbours which are more than the talus
+		// height below the current cell
+
+		// Left column
+		if (landscapePos2D.x > 0)
+		{
+			// Bottom-left neighbour
+			if (landscapePos2D.y > 0)
+			{
+				// Get height difference relative to talus height
+				heightDiff1 = thisHeight - heights[hLSIdx - hmapRes - 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff1 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff1 > maxHeightDifference) { maxHeightDifference = heightDiff1; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff1;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff1 = 0.0; }
+			}
+			// Top-left neighbour
+			if (landscapePos2D.y < hmapRes - 1)
+			{
+				// Get height difference relative to talus height
+				heightDiff2 = thisHeight - heights[hLSIdx + hmapRes - 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff2 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff2 > maxHeightDifference) { maxHeightDifference = heightDiff2; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff2;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff2 = 0.0; }
+			}
+			// Centre-left neighbour
+			// Get height difference relative to talus height
+			heightDiff3 = thisHeight - heights[hLSIdx - 1] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff3 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff3 > maxHeightDifference) { maxHeightDifference = heightDiff3; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff3;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff3 = 0.0; }
+		}
+
+		// Right column
+		if (landscapePos2D.x < hmapRes - 1)
+		{
+			// Bottom-right neighbour
+			if (landscapePos2D.y > 0)
+			{
+				// Get height difference relative to talus height
+				heightDiff4 = thisHeight - heights[hLSIdx - hmapRes + 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff4 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff4 > maxHeightDifference) { maxHeightDifference = heightDiff4; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff4;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff4 = 0.0; }
+			}
+			// Top-right neighbour
+			if (landscapePos2D.y < hmapRes - 1)
+			{
+				// Get height difference relative to talus height
+				heightDiff5 = thisHeight - heights[hLSIdx + hmapRes + 1] - tetalusHeightDiff;
+				// Only count positive height differences
+				if (heightDiff5 > 0.0)
+				{
+					// If this is greater than the current maximum height difference,
+					// record it as the new maximum height
+					if (heightDiff5 > maxHeightDifference) { maxHeightDifference = heightDiff5; }
+					// Add this height to the total
+					totalHeightDifference += heightDiff5;
+				}
+				// Clamp the height difference to positive values only
+				else { heightDiff5 = 0.0; }
+			}
+			// Centre-right neighbour
+			// Get height difference relative to talus height
+			heightDiff6 = thisHeight - heights[hLSIdx + 1] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff6 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff6 > maxHeightDifference) { maxHeightDifference = heightDiff6; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff6;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff6 = 0.0; }
+		}
+		// Middle column
+		// Bottom-centre neighbour
+		if (landscapePos2D.y > 0)
+		{
+			// Get height difference relative to talus height
+			heightDiff7 = thisHeight - heights[hLSIdx - hmapRes] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff7 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff7 > maxHeightDifference) { maxHeightDifference = heightDiff7; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff7;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff7 = 0.0; }
+		}
+		// Top-centre neighbour
+		if (landscapePos2D.y < hmapRes - 1)
+		{
+			// Get height difference relative to talus height
+			heightDiff8 = thisHeight - heights[hLSIdx + hmapRes] - tetalusHeightDiff;
+			// Only count positive height differences
+			if (heightDiff8 > 0.0)
+			{
+				// If this is greater than the current maximum height difference,
+				// record it as the new maximum height
+				if (heightDiff8 > maxHeightDifference) { maxHeightDifference = heightDiff8; }
+				// Add this height to the total
+				totalHeightDifference += heightDiff8;
+			}
+			// Clamp the height difference to positive values only
+			else { heightDiff8 = 0.0; }
+		}
+
+		// DISTRIBUTE HEIGHTS
+
+		// If material slippage should occur, distribute the difference in height between
+		// this cell and the lowest neighbouring cell between its lower neighbours
+		// The amount of distributed material is proportional to the height difference
+		if (totalHeightDifference > 0.0)
+		{
+			// Scale the height difference based on user-chosen erosion strength
+			// Also halve the value as we want to remove half the difference from this cell
+			// to equalise it with its neighbours
+			maxHeightDifference *= teErosionStrength * 0.5;
+
+			// If applicable, apply the stencil blending
+			if (numStencilLayers > 0)
+			{
+				// Might also need to adjust to totalHeightDifference and avoid div0
+				if (teFilterMode == 0) // AND
+				{
+					// Lerp between 0 and maxHeightDifference
+					maxHeightDifference *= stencilLayerBlend;
+				}
+				else // Assume NOT
+				{
+					// Lerp between maxHeightDifference and 0
+					// Mathf.LerpUnclamped(a,b,t) same as: a + (b - a) * t
+					maxHeightDifference *= (1.0 - stencilLayerBlend);
+				}
+			}
+
+			// Remove the material from this cell
+			heights[hLSIdx] -= maxHeightDifference;
+
+			// Add the material to the neighbouring cells
+
+			// This scalar is calculated now for performance
+			// Full equation is: 
+			// height += maxHeightDifference * (heightDiffX / totalHeightDifference)
+			float heightDifferenceScalar = maxHeightDifference / totalHeightDifference;
+
+			// Loop through 8 neighbours
+			// Add the height difference that is proportional to its own height difference
+
+			// Left column
+			if (landscapePos2D.x > 0)
+			{
+				// Bottom-left neighbour
+				if (landscapePos2D.y > 0)
+				{
+					heights[hLSIdx - hmapRes - 1] += heightDiff1 * heightDifferenceScalar;
+				}
+				// Top-left neighbour
+				if (landscapePos2D.y < hmapRes - 1)
+				{
+					heights[hLSIdx + hmapRes - 1] += heightDiff2 * heightDifferenceScalar;
+				}
+				// Centre-left neighbour
+				heights[hLSIdx - 1] += heightDiff3 * heightDifferenceScalar;
+			}
+			// Right column
+			if (landscapePos2D.x < hmapRes - 1)
+			{
+				// Bottom-right neighbour
+				if (landscapePos2D.y > 0)
+				{
+					heights[hLSIdx - hmapRes + 1] += heightDiff4 * heightDifferenceScalar;
+				}
+				// Top-right neighbour
+				if (landscapePos2D.y < hmapRes - 1)
+				{
+					heights[hLSIdx + hmapRes + 1] += heightDiff5 * heightDifferenceScalar;
+				}
+				// Centre-right neighbour
+				heights[hLSIdx + 1] += heightDiff6 * heightDifferenceScalar;
+			}
+			// Middle column
+			// Bottom-centre neighbour
+			if (landscapePos2D.y > 0)
+			{
+				heights[hLSIdx - hmapRes] += heightDiff7 * heightDifferenceScalar;
+			}
+			// Top-centre neighbour
+			if (landscapePos2D.y < hmapRes - 1)
+			{
+				heights[hLSIdx + hmapRes] += heightDiff8 * heightDifferenceScalar;
+			}
+		}
+	}
+}
+
+// Add the required height based on if a stencil layer is being blended or not
+float SmoothingAddHeight(float thisHeight, int blockX, int blockY, float stencilLayerBlend)
+{
+	float addHeight = 0.0;
+
+	// Read from the current heightmap into the height total
+	if (numStencilLayers > 0)
+	{
+		if (smoothingFilterMode == 0) // AND
+		{
+			// Lerp between thisHeight and neighbour height
+			// Mathf.LerpUnclamped(a,b,t) same as: a + (b - a) * t
+			addHeight = (thisHeight + (heights[(blockY * hmapRes) + blockX] - thisHeight) * stencilLayerBlend);
+		}
+		else // Assume NOT
+		{
+			// Lerp between neighbour height and thisHeight
+			// Mathf.LerpUnclamped(a,b,t) same as: a + (b - a) * t
+			float thisSurroundingHeight = heights[(blockY * hmapRes) + blockX];
+			addHeight = (thisSurroundingHeight + (thisHeight - thisSurroundingHeight) * stencilLayerBlend);
+		}
+	}
+	else
+	{
+		addHeight = heights[(blockY * hmapRes) + blockX];
+	}
+
+	return addHeight;
+}
+
+// There is one method for each pixel range of smoothing. This reduces the number of for loops.
+// Each terrain is processed one at a time but uses the landscape-scoped heightmap to avoid
+// issues on the terrain edges. Between iterations, the terrain buffer is copied back to the
+// landscape-scoped buffer with CopyTerrainToHeights().
+
+[numthreads(LB_SM_NUM_THREADS,LB_SM_NUM_THREADS,1)]
+void SmoothingPR1 (uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get 1D index in heights/heightsTemp
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes-1), landscapePos2DN.y * (hmapRes-1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && smoothingFilterMode == 0) || (stencilLayerBlend > 0.9999 && smoothingFilterMode == 2)))
+	{
+		heightsOut[hIdx] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+	}
+	else
+	{
+		// Get min-max indices for this smoothing range
+		int blockXMin = landscapePos2D.x - 1;
+		int blockXMax = landscapePos2D.x + 1;
+		int blockYMin = landscapePos2D.y - 1;
+		int blockYMax = landscapePos2D.y + 1;
+
+		// Clamp min-max indices for this block to within the landscape
+		if (blockXMin < 0) { blockXMin = 0; }
+		if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+		if (blockYMin < 0) { blockYMin = 0; }
+		if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+		// Reset height total
+		float totalHeight = 0.0;
+
+		// Looking up the array is relatively slow, so only do it once outside the loop
+		float thisHeight = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+		
+		int px, py;
+		for (uint pxy = 0; pxy < 10; pxy++)
+		{
+			px = int(pxy % 3) - 1;
+			py = int(pxy / 3) - 1;
+			totalHeight += SmoothingAddHeight(thisHeight, landscapePos2D.x + px, landscapePos2D.y + py, stencilLayerBlend) *
+				(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+		}
+
+		// Average height values and then set this average height to the temp heightmap
+		heightsOut[hIdx] = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+	}
+}
+
+[numthreads(LB_SM_NUM_THREADS, LB_SM_NUM_THREADS, 1)]
+void SmoothingPR2(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get 1D index in heights/heightsTemp
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes-1), landscapePos2DN.y * (hmapRes-1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && smoothingFilterMode == 0) || (stencilLayerBlend > 0.9999 && smoothingFilterMode == 2)))
+	{
+		heightsOut[hIdx] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+	}
+	else
+	{
+		// Get min-max indices for this smoothing range
+		int blockXMin = landscapePos2D.x - 2;
+		int blockXMax = landscapePos2D.x + 2;
+		int blockYMin = landscapePos2D.y - 2;
+		int blockYMax = landscapePos2D.y + 2;
+
+		// Clamp min-max indices for this block to within the landscape
+		if (blockXMin < 0) { blockXMin = 0; }
+		if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+		if (blockYMin < 0) { blockYMin = 0; }
+		if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+		// Reset height total
+		float totalHeight = 0.0;
+
+		// Looking up the array is relatively slow, so only do it once outside the loop
+		float thisHeight = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+
+		int px, py;
+		for (uint pxy = 0; pxy < 26; pxy++)
+		{
+			px = int(pxy % 5) - 2;
+			py = int(pxy / 5) - 2;
+			totalHeight += SmoothingAddHeight(thisHeight, landscapePos2D.x + px, landscapePos2D.y + py, stencilLayerBlend) *
+				(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+		}
+
+		// Average height values and then set this average height to the temp heightmap
+		heightsOut[hIdx] = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+	}
+}
+
+[numthreads(LB_SM_NUM_THREADS, LB_SM_NUM_THREADS, 1)]
+void SmoothingPR3(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get 1D index in heights/heightsTemp
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes-1), landscapePos2DN.y * (hmapRes-1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && smoothingFilterMode == 0) || (stencilLayerBlend > 0.9999 && smoothingFilterMode == 2)))
+	{
+		heightsOut[hIdx] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+	}
+	else
+	{
+		// Get min-max indices for this smoothing range
+		int blockXMin = landscapePos2D.x - 3;
+		int blockXMax = landscapePos2D.x + 3;
+		int blockYMin = landscapePos2D.y - 3;
+		int blockYMax = landscapePos2D.y + 3;
+
+		// Clamp min-max indices for this block to within the landscape
+		if (blockXMin < 0) { blockXMin = 0; }
+		if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+		if (blockYMin < 0) { blockYMin = 0; }
+		if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+		// Reset height total
+		float totalHeight = 0.0;
+
+		// Looking up the array is relatively slow, so only do it once outside the loop
+		float thisHeight = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+
+		int px, py;
+		for (uint pxy = 0; pxy < 50; pxy++)
+		{
+			px = int(pxy % 7) - 3;
+			py = int(pxy / 7) - 3;
+			totalHeight += SmoothingAddHeight(thisHeight, landscapePos2D.x + px, landscapePos2D.y + py, stencilLayerBlend) *
+				(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+		}
+
+		// Average height values and then set this average height to the temp heightmap
+		heightsOut[hIdx] = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+	}
+}
+
+[numthreads(LB_SM_NUM_THREADS, LB_SM_NUM_THREADS, 1)]
+void SmoothingPR4(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get 1D index in heights/heightsTemp
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes-1), landscapePos2DN.y * (hmapRes-1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && smoothingFilterMode == 0) || (stencilLayerBlend > 0.9999 && smoothingFilterMode == 2)))
+	{
+		heightsOut[hIdx] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+	}
+	else
+	{
+		// Get min-max indices for this smoothing range
+		int blockXMin = landscapePos2D.x - 4;
+		int blockXMax = landscapePos2D.x + 4;
+		int blockYMin = landscapePos2D.y - 4;
+		int blockYMax = landscapePos2D.y + 4;
+
+		// Clamp min-max indices for this block to within the landscape
+		if (blockXMin < 0) { blockXMin = 0; }
+		if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+		if (blockYMin < 0) { blockYMin = 0; }
+		if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+		// Reset height total
+		float totalHeight = 0.0;
+
+		// Looking up the array is relatively slow, so only do it once outside the loop
+		float thisHeight = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+
+		int px, py;
+		for (uint pxy = 0; pxy < 82; pxy++)
+		{
+			px = int(pxy % 9) - 4;
+			py = int(pxy / 9) - 4;
+			totalHeight += SmoothingAddHeight(thisHeight, landscapePos2D.x + px, landscapePos2D.y + py, stencilLayerBlend) *
+				(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+		}
+
+		// Average height values and then set this average height to the temp heightmap
+		heightsOut[hIdx] = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+	}
+}
+
+[numthreads(LB_SM_NUM_THREADS, LB_SM_NUM_THREADS, 1)]
+void SmoothingPR5(uint3 id : SV_DispatchThreadID)
+{
+	// We have extra passes for 2^n + 1 hmapRes so need to ignore pixels outside heightmap
+	// id.x & id.y can have a range 0 -> hmapRes-1 + LB_TOPO_NUM_THREADS
+	// Each dimension (x,y) will be numThreads - 1 wider than required
+	if (id.x > uint(terrainhmapRes - 1) || id.y > uint(terrainhmapRes - 1)) { return; }
+
+	// Get 1D index in heights/heightsTemp
+	int hIdx = (id.y * terrainhmapRes) + id.x;
+
+	// terrain position in metres
+	float2 terrainPos2DN = float2((float)id.x / (float)(terrainhmapRes - 1), (float)id.y / (float)(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes-1), landscapePos2DN.y * (hmapRes-1));
+
+	float stencilLayerBlend = 1.0;
+
+	// Get stencil layer value (currently only 0 or 1 stencil layers are supported)
+	if (numStencilLayers > 0)
+	{
+		stencilLayerBlend = GetStencilLayerPoint(landscapePos2DN, stencilLayerResolution, 0) / 65535.0;
+	}
+
+	// Check if any smoothing applies to this point in the landscape.
+	if (numStencilLayers > 0 && ((stencilLayerBlend < 0.0001 && smoothingFilterMode == 0) || (stencilLayerBlend > 0.9999 && smoothingFilterMode == 2)))
+	{
+		// Get the landscape-wide position for this terrain positon
+
+		heightsOut[hIdx] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+	}
+	else
+	{
+		// Get min-max indices for this smoothing range
+		int blockXMin = landscapePos2D.x - 5;
+		int blockXMax = landscapePos2D.x + 5;
+		int blockYMin = landscapePos2D.y - 5;
+		int blockYMax = landscapePos2D.y + 5;
+
+		// Clamp min-max indices for this block to within the landscape
+		if (blockXMin < 0) { blockXMin = 0; }
+		if (blockXMax > hmapRes - 1) { blockXMax = hmapRes - 1; }
+		if (blockYMin < 0) { blockYMin = 0; }
+		if (blockYMax > hmapRes - 1) { blockYMax = hmapRes - 1; }
+
+		// Reset height total
+		float totalHeight = 0.0;
+
+		// Looking up the array is relatively slow, so only do it once outside the loop
+		float thisHeight = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+
+		int px, py;
+		for (uint pxy = 0; pxy < 122; pxy++)
+		{
+			px = int(pxy % 11) - 5;
+			py = int(pxy / 11) - 5;
+			totalHeight += SmoothingAddHeight(thisHeight, landscapePos2D.x + px, landscapePos2D.y + py, stencilLayerBlend) *
+				(!(landscapePos2D.x + px < blockXMin || landscapePos2D.x + px > blockXMax || landscapePos2D.y + py < blockYMin || landscapePos2D.y + py > blockYMax));
+		}
+
+		// Average height values and then set this average height to the temp heightmap
+		heightsOut[hIdx] = totalHeight / (float)((blockXMax - blockXMin + 1) * (blockYMax - blockYMin + 1));
+	}
+}
+
+// Copy the terrain 1D heightmap into the larger 1D landscape-scoped heightmap
+[numthreads(LB_CPY_NUM_THREADS, 1, 1)]
+void CopyTerrainToHeights(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x > uint(terrainhmapRes * terrainhmapRes - 1)) { return; }
+
+	uint y = trunc((float)id.x / (float)terrainhmapRes);
+	uint2 terrainPos2D = uint2(id.x - ((uint)terrainhmapRes * y), y);
+
+	float2 terrainPos2DN = float2( float(terrainPos2D.x) / float(terrainhmapRes-1), float(terrainPos2D.y) / float(terrainhmapRes-1) );
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes - 1), landscapePos2DN.y * (hmapRes - 1));
+
+	heights[landscapePos2D.y * hmapRes + landscapePos2D.x] = heightsOut[id.x];
+}
+
+// Copy the 1D landscape-scoped heightmap terrain chunk into the smaller 1D terrain heightmap
+[numthreads(LB_CPY_NUM_THREADS, 1, 1)]
+void CopyHeightsToTerrain(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x > uint(terrainhmapRes * terrainhmapRes - 1)) { return; }
+
+	uint y = trunc((float)id.x / (float)terrainhmapRes);
+	uint2 terrainPos2D = uint2(id.x - ((uint)terrainhmapRes * y), y);
+
+	float2 terrainPos2DN = float2(float(terrainPos2D.x) / float(terrainhmapRes - 1), float(terrainPos2D.y) / float(terrainhmapRes - 1));
+
+	// Get normalised value in landscape
+	float2 landscapePos2DN = float2(((terrainPos2DN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPos2DN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+
+	// Get landscape position
+	int2 landscapePos2D = int2(landscapePos2DN.x * (hmapRes - 1), landscapePos2DN.y * (hmapRes - 1));
+
+	heightsOut[id.x] = heights[landscapePos2D.y * hmapRes + landscapePos2D.x];
+}

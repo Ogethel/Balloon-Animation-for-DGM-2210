@@ -1,0 +1,209 @@
+﻿// Landscape Builder. Copyright (c) 2016-2019 SCSM Pty Ltd. All rights reserved.
+#pragma kernel ObjPathTex
+#pragma kernel ObjPathTex4K
+
+// warning X4714: sum of temp registers and indexable temp registers times 512 threads exceeds the recommended total 16384
+#pragma warning(disable:4714)
+
+#define LB_PATH_TEX_NUM_THREADS 256
+#define LB_PATH_TEX_NUM_THREADS_4K 512
+
+// Landscape variables
+float3 landscapePos;
+float2 landscapeSize;
+
+// Terrain Variables
+float terrainWidth;
+float terrainLength;
+float3 terrainWorldPos;
+uint terrainIdx;
+uint numTerrainsWide;
+
+// Splatmap variables
+uint numSplatTextures;
+uint alphaMapWidth;
+uint alphaMapLength;
+StructuredBuffer<float> splatMaps;
+RWStructuredBuffer<int> splatAdditions;
+
+// Path varibles
+float4 pathBounds;
+float edgeBlendWidth;
+bool blendStart;
+bool blendEnd;
+
+// Texturing splatmap indexes
+// 0 = undefined
+uint coreTexIdx;
+uint surroundTexIdx;
+// texture strength, noise ind (0=on, 1=off), noise tilesize noiseoffset
+float4 coreTexParms;
+float4 surrTexParms;
+
+float coreTexStrength;
+float surroundTexStrength;
+// 0.0 noise tile size when noise not used
+float coreTexNoiseTileSize;
+float surrTexNoiseTileSize;
+float coreTexNoiseOffset;
+float surrTexNoiseOffset;
+
+#include "LBCGNoiseExt.cginc"
+#include "LBCGCalc.cginc"
+#include "LBCGPath.cginc"
+#include "LBCGNoise.cginc"
+
+// Get the normalised landscape position from a normalised terrain position
+// If landscapeSize is not defined, 0,0 will be returned
+// This method is borrowed from LBCGLib.cginc
+float2 GetTopoLandscapePos2DN(float2 terrainPosN)
+{
+	// Avoid div0
+	if (!isnan(landscapeSize.x))
+	{
+		return float2(((terrainPosN.x * terrainWidth) + terrainWorldPos.x - landscapePos.x) / landscapeSize.x, ((terrainPosN.y * terrainLength) + terrainWorldPos.z - landscapePos.z) / landscapeSize.y);
+	}
+	else { return float2(0.0, 0.0); }
+}
+
+void GetObjPathTex(uint3 id)
+{
+	// Get x,y coordinates within the terrain's splatmap
+	uint y = trunc((float)id.x / (float)alphaMapWidth);
+	uint2 splatPos2D = uint2(id.x - (alphaMapWidth * y), y);
+
+	// Get terrain normalised position of alphamap point - values between 0.0 and 1.0
+	float2 alphaLess1F = float2(alphaMapWidth - 1, alphaMapLength - 1);
+	float2 terrainPos2DN = float2(splatPos2D.x / alphaLess1F.x, splatPos2D.y / alphaLess1F.y);
+
+	// Get the normalised 2D position in the landscape (x 0.0-1.0, y 0.0-1.0)
+	float2 landscapePos2DN = GetTopoLandscapePos2DN(terrainPos2DN);
+
+	// Get worldspace position of the alphamap point in the terrain
+	float3 worldPos3D = float3((landscapePos2DN.x * landscapeSize.x) + landscapePos.x, 0.0, (landscapePos2DN.y * landscapeSize.y) + landscapePos.z);
+
+	// Ignore anything outside the bounding box of the Object Path
+	if (worldPos3D.x >= pathBounds.x && worldPos3D.x <= pathBounds.z && worldPos3D.z >= pathBounds.y && worldPos3D.z <= pathBounds.w)
+	{
+		float3 quadP1;
+		float3 quadP2;
+		float3 quadP3;
+		float3 quadP4;
+		uint widthPoint;
+		uint firstMatchPtIdx;
+		uint secondMatchPtIdx;
+
+		// Check if the point is in the path, and if so find what segment it is in
+		if (IsPointInPath(worldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+		{
+			// Calculate the x and z shifts for this terrain
+			uint texCoordZShift = (terrainIdx % numTerrainsWide) * alphaMapWidth;
+			uint texCoordXShift = (uint)((float)terrainIdx / (float)numTerrainsWide) * alphaMapWidth;
+
+			// Initialise variables
+			float newTexStrength = 0.0;
+			uint texArrayCellsListWidth = numTerrainsWide * alphaMapWidth;
+			int totalTexArrayCells = texArrayCellsListWidth * texArrayCellsListWidth;
+
+			uint splatMap1DSize = alphaMapWidth * alphaMapLength;
+
+			// Calculate base texture array index
+			uint texArrayIndex = ((splatPos2D.y + texCoordZShift) * texArrayCellsListWidth) + splatPos2D.x + texCoordXShift;
+
+			// Reset total weights to zero
+			float texWeightsTotal = 0.0;
+
+			// Declare variables to pass into GetCentreInterpolatedPathPoint function as out variables
+			float centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth;
+			// Get centre interpolated path point and related data
+			float3 centreInterpolatedPathPt = GetCentreInterpolatedPathPoint(worldPos3D, firstMatchPtIdx, secondMatchPtIdx,
+				centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth);
+
+			// Calculate the half-width of the path that will have the core texture
+			// edgeBlendWidth is the fixed surround distance on each side of the path
+			float halfCorePathWidth = (fullPathWidth / 2.0) - edgeBlendWidth;
+
+			// bool cast to int in compute shader, like c (but not c#) is false = 0, true = 1
+			int useCoreTex = (int)(coreTexIdx > 0);
+			int useSurroundTex = (int)(surroundTexIdx > 0);
+
+			// Calculate a 0-1 value representing where this world position is in relation to the path width
+			// 0 = any point on the core part of the path, up to the edge between the core and surrounding parts of the path
+			// 1 = the very edge of the full width of the path
+			// Any value in between is a linear interpolation between these two values
+			float edgeSurroundingPosValue = max(hmapWorldPosToInterpolatedDist - halfCorePathWidth, 0.0) / edgeBlendWidth;
+			// Calculate the core and surrounding texture strengths
+			// Core texture: 1 on the core part of the path, then fading out quickly (power of eight) to the edge of the path
+			float coreTexBlendAmount = IntPow(1.0 - edgeSurroundingPosValue, 8);
+			// Surrounding texture: 0 on the core part of the path, then mapped to a triangular distribution with 0 at the edges
+			// and peaking at 1 in the middle of the surrounding part of the path. This is then raised to the power of eight so
+			// that it increases quickly to the peak value
+			int onSurroundingPathInt = (int)(edgeSurroundingPosValue > 0.0);
+			float surroundTexBlendAmount = (1.0 - IntPow((edgeSurroundingPosValue - 0.5) * 2.0, 8)) * onSurroundingPathInt;
+
+			//coreTexBlendAmount = 1.0;
+			//surroundTexBlendAmount = 0.0;
+
+			// Core Noise
+			float2 coords = float2(worldPos3D.x + coreTexParms.w, worldPos3D.z + coreTexParms.w);
+			// Get the noise with Octaves = 5. If noise is not used, noiseValue will always be >= 1.0 which will be clamped below to 1.0
+			float noiseValue = (abs(LBPerlinFractalNoise(coords.x / coreTexParms.z, coords.y / coreTexParms.z, 5) - 0.5) * 4.0) + coreTexParms.y;
+
+			// Clamp between 0 and 1
+			coreTexBlendAmount *= (noiseValue < 0.0 ? 0.0 : noiseValue > 1.0 ? 1.0 : noiseValue);
+
+			// Surround Noise
+			coords.x = worldPos3D.x + surrTexParms.w;
+			coords.y = worldPos3D.z + surrTexParms.w;
+			// Get the noise with Octaves = 5. If noise is not used, noiseValue will always be >= 1.0 which will be clamped below to 1.0
+			noiseValue = (abs(LBPerlinFractalNoise(coords.x / surrTexParms.z, coords.y / surrTexParms.z, 5) - 0.5) * 4.0) + surrTexParms.y;
+
+			// Clamp between 0 and 1
+			surroundTexBlendAmount *= (noiseValue < 0.0 ? 0.0 : noiseValue > 1.0 ? 1.0 : noiseValue);
+
+			// Blend Ends
+			// Get the distance to the ends of the path
+			float worldPosDistToStart = length(centreInterpolatedPathPt.xz - splinePointsCentre[0].xz);
+			float worldPosDistToEnd = length(centreInterpolatedPathPt.xz - splinePointsCentre[numSplineCentrePoints - 1].xz);
+
+			// Get some integers to act as bools for whether we will blend each end
+			// If we are going to blend the end, the value will be 0, otherwise it will be 1
+			// This value is fed later into a max function, so if the value is 1 it will override whatever else is in the max function
+			int isNotBlendStartInt = (int)!blendStart;
+			int isNotBlendEndInt = (int)!blendEnd;
+
+			// If we need to blend, multiply the current blend amount by the start/end blend amount
+			float startBlendAmount = min(max(worldPosDistToStart / edgeBlendWidth, isNotBlendStartInt), 1.0);
+			float endBlendAmount = min(max(worldPosDistToEnd / edgeBlendWidth, isNotBlendEndInt), 1.0);
+
+			// Apply end blend amounts to the core and surround textures
+			coreTexBlendAmount *= startBlendAmount;
+			coreTexBlendAmount *= endBlendAmount;
+
+			surroundTexBlendAmount *= startBlendAmount;
+			surroundTexBlendAmount *= endBlendAmount;
+
+			int splatAdditionsIdx;
+			// Write core texture strength to splat additions map
+			splatAdditionsIdx = (totalTexArrayCells * (coreTexIdx - 1)) + texArrayIndex;
+			splatAdditions[splatAdditionsIdx] = min(splatAdditions[splatAdditionsIdx] +
+				round(255.0 * coreTexParms.x * coreTexBlendAmount) * useCoreTex, 255);
+			// Write core texture strength to splat additions map
+			splatAdditionsIdx = (totalTexArrayCells * (surroundTexIdx - 1)) + texArrayIndex;
+			splatAdditions[splatAdditionsIdx] = min(splatAdditions[splatAdditionsIdx] +
+				round(255.0 * surrTexParms.x * surroundTexBlendAmount) * useSurroundTex, 255);
+		}
+	}
+}
+
+[numthreads(LB_PATH_TEX_NUM_THREADS, 1, 1)]
+void ObjPathTex(uint3 id : SV_DispatchThreadID)
+{
+	GetObjPathTex(id);
+}
+
+[numthreads(LB_PATH_TEX_NUM_THREADS_4K, 1, 1)]
+void ObjPathTex4K(uint3 id : SV_DispatchThreadID)
+{
+	GetObjPathTex(id);
+}

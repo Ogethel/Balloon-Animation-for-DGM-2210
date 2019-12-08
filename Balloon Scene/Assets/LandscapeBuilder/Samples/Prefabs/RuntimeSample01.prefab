@@ -1,0 +1,376 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &117932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 474934}
+  - component: {fileID: 2033962}
+  - component: {fileID: 12441630}
+  - component: {fileID: 8184342}
+  - component: {fileID: 11416600}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &126660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 472704}
+  m_Layer: 0
+  m_Name: RuntimeSample01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &153130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 475652}
+  - component: {fileID: 11401062}
+  m_Layer: 0
+  m_Name: Runtime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &159740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 406978}
+  - component: {fileID: 11439422}
+  m_Layer: 0
+  m_Name: Camera Path
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406978
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9569.111, y: 4390.542, z: 2045.9084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 472704}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &472704
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126660}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 475652}
+  - {fileID: 474934}
+  - {fileID: 406978}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &474934
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117932}
+  m_LocalRotation: {x: 0.03456916, y: 0.8327533, z: -0.052357297, w: 0.5500779}
+  m_LocalPosition: {x: -7563.1113, y: 5240.542, z: 4307.908}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 472704}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &475652
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 472704}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &2033962
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117932}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 5
+  far clip plane: 10000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &8184342
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117932}
+  m_Enabled: 1
+--- !u!114 &11401062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52515fdb6d20de4c9813dd8f6f01140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassHillTexture: {fileID: 2800000, guid: 66b008e0db2854d1fbd3f17b4b71040a, type: 3}
+  grassHillNormalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+  rockLayeredTexture: {fileID: 2800000, guid: ffb0ca6483707412c8ae9a605865ccb0, type: 3}
+  rockLayeredNormalMap: {fileID: 2800000, guid: 16415104bc3ec4fab96df2d2a686b017,
+    type: 3}
+  rock1Texture: {fileID: 2800000, guid: 44b3f5b19e24542a3ac407370453ae04, type: 3}
+  rock1NormalMap: {fileID: 2800000, guid: 80b16f255d78c45d791fb91d3559bcdf, type: 3}
+  botCliffTexture: {fileID: 2800000, guid: dabfeb402b245491b8fd9d955b48981d, type: 3}
+  botCliffNormalMap: {fileID: 2800000, guid: 5caa61bde6c354219a496147337bf357, type: 3}
+  landscapeSize: {x: 4000, y: 4000}
+--- !u!114 &11416600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea5f044602680499c94cee83bd67af0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRunning: 0
+  cameraPath: {fileID: 11439422}
+  animateSpeed: 0
+  moveSpeed: 20
+  minMoveSpeed: 5
+  maxMoveSpeed: 10
+  speedTimeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotateCamera: 1
+  rotationTangentDistance: 1
+  startOnAwake: 1
+  enableAudioListener: 1
+  animatorCamera: {fileID: 0}
+  addAQUASCameraScript: 0
+  startDistanceOffset: 0
+  endDistanceOffset: 0
+  disableCameraList: []
+  disableGameObjectList: []
+  fadeIn: 0
+  fadeOut: 0
+  fadeInDuration: 5
+  fadeOutDuration: 5
+  pauseAtEndDuration: 0
+  isEditorPreviewEnabled: 0
+  previewDistanceOffset: 0
+  showPathInScenePrePreviewMode: 0
+--- !u!114 &11439422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13dd29cc58a6e4fd5825a449aca15662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lbPath:
+    pathName: Camera Path
+    pathType: 10
+    closedCircuit: 0
+    showPathInScene: 1
+    showDistancesInScene: 0
+    showPointLabelsInScene: 0
+    snapToTerrain: 1
+    heightAboveTerrain: 5
+    pointDisplayScale: 1
+    pathLength: 400.59604
+    pathLengthToLastPoint: 400.59604
+    splineLength: 400.3008
+    splineLengthToLastPoint: 400.3008
+    splineDistTo2ndLastPoint: 400
+    pathResolution: 20
+    edgeBlendWidth: 5
+    blendStart: 1
+    blendEnd: 1
+    removeCentre: 0
+    leftBorderWidth: 0
+    rightBorderWidth: 0
+    isMeshLandscapeUV: 0
+    meshUVTileScale: {x: 1, y: 1}
+    meshYOffset: 0
+    meshEdgeSnapToTerrain: 0
+    meshIncludeEdges: 1
+    meshIncludeWater: 0
+    meshSnapType: 5
+    meshIsDoubleSided: 0
+    meshSaveToProjectFolder: 0
+    meshTempMaterial: {fileID: 0}
+    showAdvancedOptions: 0
+    pathPointColour: {x: 1, y: 0, z: 0, w: 0.75}
+    positionSpacingTarget: 20
+    curveDetectionInner: 3
+    curveDetectionOuter: 3
+    positionList:
+    - {x: 2000, y: 925, z: 2004.3203}
+    - {x: 1988.6965, y: 925, z: 2104}
+    - {x: 2000, y: 910, z: 2197.8877}
+    - {x: 2173.3987, y: 925, z: 2090.4622}
+    positionListLeftEdge: []
+    positionListRightEdge: []
+    rotationList: []
+    widthList: []
+    selectedList: 
+    lbMesh:
+      mesh: {fileID: 0}
+      title: 
+      verts: []
+      normals: []
+      triangles: 
+      uvs: []
+      uv2s: []
+      uv3s: []
+      uv4s: []
+      tangents: []
+      colours: []
+      minExtent: {x: Infinity, y: Infinity, z: Infinity}
+      maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+    lbWater:
+      isPrimaryWater: 0
+      waterPrefabName: unknown
+      waterPrefabPath: 
+      waterLevel: 0
+      name: secondary water
+      GUID: 9774e20b-0d8f-41fa-8656-d912d7261a24
+      meshBoundsRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      meshScale: {x: 1, y: 1, z: 1}
+      resizingMode: 0
+      waterSize: {x: 100, y: 100}
+      keepPrefabAspectRatio: 0
+      waterCausticList: []
+      waterPosition: {x: 0, y: 0, z: 0}
+      isDisabled: 0
+      isRiver: 0
+      riverMaterial: {fileID: 0}
+      flowMapTexture: {fileID: 0}
+      riverFlowSpeed: 1.5
+      isUnderWaterFXEnabled: 0
+      underWaterFXPrefabName: unknown
+      underWaterFXPrefabPath: 
+      waterMaterial: {fileID: 0}
+      meshResizingMode: 0
+    findZoomDistance: 50
+    zoomOnFind: 1
+  pathPoints: []
+  pathPointsUndo: []
+  pathLength: 400.59604
+  pathLengthToLastPoint: 400.59604
+  useEasyRoads: 0
+  isEasyRoadsInstalled: 0
+  heightAboveRoad: 2
+  splineType: 3
+  roadList: []
+--- !u!124 &12441630
+Behaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117932}
+  m_Enabled: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 126660}
+  m_IsPrefabParent: 1

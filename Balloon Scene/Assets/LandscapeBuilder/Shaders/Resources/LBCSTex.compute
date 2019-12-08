@@ -1,0 +1,451 @@
+﻿// Landscape Builder. Copyright (c) 2016-2019 SCSM Pty Ltd. All rights reserved.
+#pragma kernel TexPerlin
+#pragma kernel TexPerlin4K
+#pragma kernel TexModGroup
+#pragma kernel TexModGroup4K
+
+// warning X4714: sum of temp registers and indexable temp registers times 512 threads exceeds the recommended total 16384
+#pragma warning(disable:4714)
+
+#define LB_IMPORT_TEX 1
+
+#define LB_TEX_NUM_THREADS 256
+#define LB_TEX_NUM_THREADS_4K 512
+
+// Heightmap variables
+StructuredBuffer<float> heightsIn;
+// Low res heights for whole landscape
+StructuredBuffer<float> heightsLandscape;
+uint hmapLandscapeRes;
+
+// Splatmap variables
+uint numSplatTextures;
+uint alphaMapWidth;
+uint alphaMapLength;
+RWStructuredBuffer<float> splatMaps;
+StructuredBuffer<int> splatAdditions;
+
+// Texture variables
+uint lbPathCurveNumKeys;
+StructuredBuffer<float4> lbPathCurve;
+
+struct LBTexRule
+{
+	float minHeightN;
+	float maxHeightN;
+	float minInclination;
+	float maxInclination;
+	int isCurvatureConcave;
+	float curvatureMinHeightDiffN;
+	float curvatureDistanceXN;
+	float curvatureDistanceZN;
+};
+
+StructuredBuffer<LBTexRule> lbTexRules;
+
+// Use ints for bools where required
+struct LBTexture
+{
+	uint texturingMode;
+	float strength;
+	int useNoise;
+	float noiseTileSize;
+	float noiseOffset;
+	int isMinimalBlendingEnabled;
+	int mapTexArrayIdx;
+	uint mapTexWidth;
+	uint mapTexHeight;
+	int mapInverse;
+	int isAreaFiltersToApply;
+	int isStencilLayerFiltersToApply;
+	int importedTexArrayIdx;
+	uint importedTexWidth;
+};
+
+StructuredBuffer<LBTexture> lbTextures;
+
+#include "LBCGNoiseExt.cginc"
+#include "LBCGCalc.cginc"
+#include "LBCGLib.cginc"
+#include "LBCGNoise.cginc"
+#include "LBCGStencil.cginc"
+#if LB_IMPORT_TEX > 0
+#include "LBCGTexImported.cginc"
+#endif
+
+uint numlbFilters;
+StructuredBuffer<LBFilter> lbFilters;
+
+// Variables used in TexModGroup
+uint terrainIdx;
+uint numTerrainsWide;
+
+// Get blend weight for a texture at a position in terain
+float GetBlendWeight(uint smTexIdx, float2 posN, float2 landscapePos2DN, float2 landscapePos2DM, float heightN, float angle)
+{
+	float blendWeight = 0.0;
+	uint texturingMode = lbTextures[smTexIdx].texturingMode;
+
+	// Height
+	if (texturingMode == 0)
+	{
+		blendWeight = LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minHeightN, lbTexRules[smTexIdx].maxHeightN, heightN));
+	}
+
+	// Inclination
+	else if (texturingMode == 1)
+	{
+		blendWeight = LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minInclination, lbTexRules[smTexIdx].maxInclination, angle));
+	}
+
+	// HeightAndInclination
+	else if (texturingMode == 2)
+	{
+		blendWeight = LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minHeightN, lbTexRules[smTexIdx].maxHeightN, heightN))
+			* LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minInclination, lbTexRules[smTexIdx].maxInclination, angle));
+	}
+
+	// ConstantInfluence
+	else if (texturingMode == 3)
+	{
+		blendWeight = 1;
+	}
+
+	// Height Inclination Curvature
+	else if (texturingMode == 6)
+	{
+		blendWeight = LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minHeightN, lbTexRules[smTexIdx].maxHeightN, heightN))
+			* LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minInclination, lbTexRules[smTexIdx].maxInclination, angle));
+		if (blendWeight > 0.0)
+		{
+			float h = 0.0;
+
+			// Get 4 surrounding points
+			float2 h1N = float2(posN.x, posN.y - lbTexRules[smTexIdx].curvatureDistanceZN);
+			float2 h2N = float2(posN.x, posN.y + lbTexRules[smTexIdx].curvatureDistanceZN);
+			float2 h3N = float2(posN.x - lbTexRules[smTexIdx].curvatureDistanceXN, posN.y);
+			float2 h4N = float2(posN.x + lbTexRules[smTexIdx].curvatureDistanceXN, posN.y);
+
+			// if the point is inside the terrain, use that. If outside, use low-res whole landscape heightmap
+			if (h1N.y >= 0.0) { h += LBGetInterpolatedHeightN(h1N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x, landscapePos2DN.y - ((lbTexRules[smTexIdx].curvatureDistanceZN * terrainLength) / landscapeSize.y)), heightsLandscape, hmapLandscapeRes);
+			}
+
+			if (h2N.y <= 1.0) { h += LBGetInterpolatedHeightN(h2N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x, landscapePos2DN.y + ((lbTexRules[smTexIdx].curvatureDistanceZN * terrainLength) / landscapeSize.y)), heightsLandscape, hmapLandscapeRes);
+			}
+
+			if (h3N.x >= 0.0) { h += LBGetInterpolatedHeightN(h3N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x - ((lbTexRules[smTexIdx].curvatureDistanceXN * terrainWidth) / landscapeSize.x), landscapePos2DN.y), heightsLandscape, hmapLandscapeRes);
+			}
+
+			if (h4N.x <= 1.0) { h += LBGetInterpolatedHeightN(h4N, heightsIn); }
+			else
+			{
+				h += LBGetInterpolatedHeightN(float2(landscapePos2DN.x + ((lbTexRules[smTexIdx].curvatureDistanceXN * terrainWidth) / landscapeSize.x), landscapePos2DN.y), heightsLandscape, hmapLandscapeRes);
+			}
+
+			if (lbTexRules[smTexIdx].isCurvatureConcave == 1)
+			{
+				// If Avg is NOT above the current point by height difference, then it is NOT concave
+				if ((h / 4.0) < heightN + lbTexRules[smTexIdx].curvatureMinHeightDiffN) { blendWeight = 0.0; }
+
+				//float h2tt = LBGetInterpolatedHeightN(float2(landscapePos2DN.x, landscapePos2DN.y), heightsLandscape, hmapLandscapeRes);
+				////				   
+				////// TEST CODE
+				//if (smTexIdx == 0 && ((h2tt * terrainHeight) <= 120.0))
+				////if (smTexIdx == 0 && h2tt > 0.10)
+				//{ blendWeights[smTexIdx] = 1.0; }
+				//else { blendWeights[smTexIdx] = 0.0; }
+			}
+			else
+			{
+				// If Avg is NOT below the current point by height difference, then it is NOT convex
+				if ((h / 4.0) > heightN + lbTexRules[smTexIdx].curvatureMinHeightDiffN) { blendWeight = 0.0; }
+			}
+		}
+	}
+
+	// Map or HeightInclinationMap
+	// Could potentially just check for mapTexArrayIdx >= 0
+	else if (texturingMode == 4 || texturingMode == 5)
+	{
+		float mapValue = 0.0;
+		if (lbTextures[smTexIdx].mapTexArrayIdx >= 0)
+		{
+			// Read from Texture2DArray
+			mapValue = GetMapPoint(landscapePos2DN, lbTextures[smTexIdx].mapTexArrayIdx, lbTextures[smTexIdx].mapTexWidth, lbTextures[smTexIdx].mapTexHeight);
+
+			// Evaluate against default LBMap curve, and invert the Map if required
+			mapValue = LBEvaluate(lbTextures[smTexIdx].mapInverse == 1 ? 1.0 - mapValue : mapValue, lbPathCurve, lbPathCurveNumKeys);
+		}
+
+		// Apply height and inclination if required
+		if (texturingMode == 5)
+		{
+			mapValue *= LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minHeightN, lbTexRules[smTexIdx].maxHeightN, heightN))
+				* LBEvaluateWideRangeCurve(LBInverseLerp(lbTexRules[smTexIdx].minInclination, lbTexRules[smTexIdx].maxInclination, angle));
+		}
+
+		blendWeight = mapValue;
+	}
+
+	// Imported
+	else if (texturingMode == 20)
+	{
+		// Flip terrain position back to correct xy order to match imported data
+		blendWeight = GetImportedTexturePoint(float2(posN.y, posN.x), lbTextures[smTexIdx].importedTexWidth, lbTextures[smTexIdx].importedTexArrayIdx).r;
+	}
+
+	else
+	{
+		blendWeight = 0.0;
+	}
+
+	// Check filters
+	bool includePoint = (blendWeight > 0.001 ? true : false);
+	bool includePointCurrentFilter = false;
+
+	// Area Filters
+	// This is an int representing a bool (0=false, 1=true)
+	if (includePoint && lbTextures[smTexIdx].isAreaFiltersToApply == 1)
+	{
+		// Instead of using a break, set weight to 0.0 to force exit from for-loop.
+		for (uint fIdx = 0; fIdx < numlbFilters && blendWeight > 0.001; fIdx++)
+		{
+			// Is this an Area TextureFilter for this LBTexture?
+			if (lbFilters[fIdx].lbTexIdx == smTexIdx && lbFilters[fIdx].csfilterType == 4)
+			{
+				if (landscapePos2DM.x >= lbFilters[fIdx].areaRect.x && landscapePos2DM.x <= lbFilters[fIdx].areaRect.z &&
+					landscapePos2DM.y >= lbFilters[fIdx].areaRect.y && landscapePos2DM.y <= lbFilters[fIdx].areaRect.w)
+				{
+					includePointCurrentFilter = true;
+				}
+				else
+				{
+					includePointCurrentFilter = false;
+				}
+
+				if (lbFilters[fIdx].filterMode == 0) // AND
+				{
+					if (includePointCurrentFilter)
+					{
+						if (fIdx == 0) { includePoint = true; }
+						else
+						{
+							// If the point has been included with a previous filter it will still be included
+							// and we don't need to do anything here.
+
+							// Because this an AND, if it hasn't already been included by another filter, it
+							// will never be included.
+							if (!includePoint) { blendWeight = 0.0; }
+						}
+					}
+					// With the AND operator, if this point is not in the area we should not texture it
+					else { includePoint = false; blendWeight = 0.0; }
+				}
+				else if (lbFilters[fIdx].filterMode == 2) // NOT
+				{
+					if (!includePointCurrentFilter) { includePoint = true; }
+					else { includePoint = false; blendWeight = 0.0; }
+				}
+
+				// If using Filter1 OR Filter 2 OR.. any "hit" will satisfy the criteria and there is no need
+				// to test any other area filters.
+				else if (includePointCurrentFilter && lbFilters[fIdx].filterMode == 1) // OR
+				{
+					includePoint = true;
+				}
+			}
+		}
+		if (!includePoint) { blendWeight = 0.0; }
+	}
+
+	// Stencil Layer Filters
+	// This is an int representing a bool (0=false, 1=true)
+	if (includePoint && lbTextures[smTexIdx].isStencilLayerFiltersToApply == 1)
+	{
+		// Instead of using a break, set weight to 0.0 to force exit from for-loop.
+		for (uint fIdx = 0; fIdx < numlbFilters && blendWeight > 0.001; fIdx++)
+		{
+			// Ignore filters that are not for this LBTerrainTexture, or are not Stencil Layer filters
+			if (lbFilters[fIdx].lbTexIdx != smTexIdx || lbFilters[fIdx].csfilterType != 3) { continue; }
+
+			float stencilLayerPixel = GetStencilLayerPoint(landscapePos2DN, lbFilters[fIdx].stencilLayerResolution, lbFilters[fIdx].stencilLayerTex2DArrIdx);
+			int filterMode = (int)lbFilters[fIdx].filterMode;
+
+			// Combine checking for AND and NOT conditions where we want to exit the loop without including this point
+			if ((filterMode == 0 && stencilLayerPixel <= 0.0) || (filterMode == 2 && stencilLayerPixel >= 65535.0)) { blendWeight = 0.0; break; }
+			else if (filterMode == 0) // AND
+			{
+				// Lerp between 0 and blendWeight
+				blendWeight = lerp(0.0, blendWeight, stencilLayerPixel / 65535.0);
+			}
+			else if (filterMode == 2) // NOT
+			{
+				// Lerp between blendWeight and 0 (reverse of the AND blending)
+				blendWeight = lerp(blendWeight, 0.0, stencilLayerPixel / 65535.0);
+			}
+		}
+
+		includePoint = (blendWeight > 0.001 ? true : false);
+	}
+
+	// Noise - currently not the same as non-compute
+	if (includePoint && lbTextures[smTexIdx].useNoise == 1)
+	{
+		// Get a perlin noise value for this point in the landscape
+		float textureNoiseTileSize = lbTextures[smTexIdx].noiseTileSize;
+		// For correct noise across terrain boundaries alpamap x and y must be switched (which has been done in posN)
+		float2 coords = float2(terrainWorldPos.x + (terrainWidth * posN.x) + lbTextures[smTexIdx].noiseOffset, terrainWorldPos.z + (terrainLength * posN.y) + lbTextures[smTexIdx].noiseOffset);
+		// Get the noise with Octaves = 5
+		float noiseValue = abs(LBPerlinFractalNoise(coords.x / textureNoiseTileSize, coords.y / textureNoiseTileSize, 5) - 0.5) * 4.0;
+
+		// Limit noise value between 0.1 and 1
+		noiseValue = (noiseValue < 0.1 ? 0.1 : noiseValue > 1.0 ? 1.0 : noiseValue);
+
+		// Minimal Blending
+		if (lbTextures[smTexIdx].isMinimalBlendingEnabled == 1)
+		{
+			blendWeight *= noiseValue;
+			if (blendWeight < 0.1) { blendWeight = 0.01; }
+			else if (blendWeight > 0.49) { blendWeight = 1.0; }
+		}
+		else
+		{
+			blendWeight *= noiseValue;
+		}
+	}
+
+	// Multiply the result by the strength of this LBTerrainTexture
+	blendWeight *= lbTextures[smTexIdx].strength;
+
+	return blendWeight;
+}
+
+void GetTexPerlin(uint3 id)
+{
+	// Get x,y coordinates within the terrain's splatmap
+	uint2 pos = Get2DPos(id.x, alphaMapWidth);
+
+	// Get terrain normalised position of alphamap point - values between 0.0 and 1.0
+	float2 alphaLess1F = float2(alphaMapWidth - 1, alphaMapLength - 1);
+	// Switch x,y to be backward compatible with non-compute code
+	float2 posN = float2(pos.y / alphaLess1F.y, pos.x / alphaLess1F.x);
+
+	// Get the normalised 2D position in the landscape (x 0.0-1.0, y 0.0-1.0)
+	float2 landscapePos2DN = GetTopoLandscapePos2DN(posN);
+
+	// Get the landscape 2D position in metres, from the bottom-left corner
+	float2 landscapePos2DM = GetTopoLandscapePos2DMfromN(landscapePos2DN);
+
+	uint smTexIdx = 0;
+
+	// Assume max 16 textures (4 splatmaps - each have rgba channels). Must use literal rather than numSplatTextures.
+	// Could use a float4 but that isn't scalable and might require lots of branching code
+	// LB_MAX_SPLAT_TEX defined in LBCGLib.cginc
+	float blendWeights[LB_MAX_SPLAT_TEX];
+
+	// TODO If a landscape is supplied, check the edges with the same terrain to ensure both sides of the terrain
+	// edges use the same values. Only check the edges, as this method is slightly slower than checking the current terrain.
+
+	// Interpolate between textures based on height (add small value to ensure range that includes 0 height works)
+	float heightN = LBGetInterpolatedHeightN(posN, heightsIn) + 0.00001;
+
+	// Interpolate between textures based on steepness (add small value to ensure range that includes 0 angle works)
+	// terrainNormals tex has same resolution as Alphamap (splatmap).
+	float angle = LBGetSteepness(posN) + 0.00001;
+
+	// Set blend weight for each texture
+	for (smTexIdx = 0; smTexIdx < numSplatTextures; smTexIdx++)
+	{
+		blendWeights[smTexIdx] = GetBlendWeight(smTexIdx, posN, landscapePos2DN, landscapePos2DM, heightN, angle);
+	}
+
+	// Normalise each blend weight so that the sum of all blend weights is 1
+	float normFactor = 0.0;
+	for (smTexIdx = 0; smTexIdx < numSplatTextures; smTexIdx++) { normFactor += blendWeights[smTexIdx]; }
+
+	for (smTexIdx = 0; smTexIdx < numSplatTextures; smTexIdx++)
+	{
+		splatMaps[(alphaMapWidth * alphaMapLength * smTexIdx) + (alphaMapWidth * pos.y) + pos.x] = blendWeights[smTexIdx] / normFactor;
+	}
+}
+
+[numthreads(LB_TEX_NUM_THREADS, 1, 1)]
+void TexPerlin(uint3 id : SV_DispatchThreadID)
+{
+	GetTexPerlin(id);
+}
+
+[numthreads(LB_TEX_NUM_THREADS_4K, 1, 1)]
+void TexPerlin4K(uint3 id : SV_DispatchThreadID)
+{
+	// For use with 4K Textures in 2019.3+
+	GetTexPerlin(id);
+}
+
+void DoTexModGroup(uint3 id)
+{
+	// Calculate the x and z shifts for this terrain
+	uint texCoordZShift = (terrainIdx % numTerrainsWide) * alphaMapWidth;
+	uint texCoordXShift = (uint)((float)terrainIdx / (float)numTerrainsWide) * alphaMapWidth;
+
+	// Initialise variables
+	float newTexStrength = 0.0;
+	uint texArrayCellsListWidth = numTerrainsWide * alphaMapWidth;
+	int totalTexArrayCells = texArrayCellsListWidth * texArrayCellsListWidth;
+
+	uint splatMap1DSize = alphaMapWidth * alphaMapLength;
+
+	// Get x,y coordinates within the terrain's splatmap
+	uint2 pos = Get2DPos(id.x, alphaMapWidth);
+
+	// Calculate base texture array index
+	uint texArrayIndex = ((pos.y + texCoordZShift) * texArrayCellsListWidth) + pos.x + texCoordXShift;
+	// Reset total weights to zero
+	float texWeightsTotal = 0.0;
+
+	uint smTexIdx = 0;
+
+	// Loop through the various textures and modify them
+	for (smTexIdx = 0; smTexIdx < numSplatTextures; smTexIdx++)
+	{
+		// Calculate a texture strength adjusted by the value of the texture addition array
+		// The component from the texture addition array is the overwhelming factor
+		// (it is stronger by a factor of ten)
+		newTexStrength = splatMaps[(splatMap1DSize * smTexIdx) + (alphaMapWidth * pos.y) + pos.x] + ((float)splatAdditions[texArrayIndex] / 25.5);
+
+		// Add this texture strength to the total
+		texWeightsTotal += newTexStrength;
+		// Set this new texture strength back to the array
+		splatMaps[(splatMap1DSize * smTexIdx) + (alphaMapWidth * pos.y) + pos.x] = newTexStrength;
+		// Increment the texture array index so that the next time through the loop we 
+		// will be indexing the next texture
+		texArrayIndex += totalTexArrayCells;
+	}
+	// Loop through the various textures a second time to divide by total of adjusted weights
+	for (smTexIdx = 0; smTexIdx < numSplatTextures; smTexIdx++)
+	{
+		splatMaps[(splatMap1DSize * smTexIdx) + (alphaMapWidth * pos.y) + pos.x] /= texWeightsTotal;
+	}
+}
+
+[numthreads(LB_TEX_NUM_THREADS, 1, 1)]
+void TexModGroup(uint3 id : SV_DispatchThreadID)
+{
+	DoTexModGroup(id);
+}
+
+[numthreads(LB_TEX_NUM_THREADS_4K, 1, 1)]
+void TexModGroup4K(uint3 id : SV_DispatchThreadID)
+{
+	// For use with 4K Textures in 2019.3+
+	DoTexModGroup(id);
+}

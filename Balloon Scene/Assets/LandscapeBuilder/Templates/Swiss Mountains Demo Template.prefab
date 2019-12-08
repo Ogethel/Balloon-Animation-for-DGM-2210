@@ -1,0 +1,2484 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &129252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 411098}
+  - component: {fileID: 11423164}
+  m_Layer: 0
+  m_Name: Swiss Mountains Demo Template
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &411098
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129252}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11423164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec86490d7f0b8704e8f8526f425c06e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LBVersion: 1.3.2
+  landscapeName: Swiss Mountains Template
+  isLBLightingIncluded: 1
+  useLegacyNoiseOffset: 1
+  heightmapResolution: 513
+  terrainWidth: 2000
+  terrainHeight: 2000
+  pixelError: 5
+  baseMapDistance: 5000
+  baseTextureResolution: 512
+  alphaMapResolution: 512
+  landscapeLayerIndex: 0
+  treeDistance: 10000
+  treeBillboardDistance: 200
+  detailDistance: 100
+  detailDensity: 1
+  detailResolution: 1024
+  treeFadeDistance: 5
+  showTerrainGrassWindSettings: 0
+  grassWindSpeed: 0.5
+  grassWindRippleSize: 0.5
+  grassWindBending: 0
+  grassWindTint: {r: 0.7, g: 0.6, b: 0.5, a: 0}
+  terrainMaterialType: 0
+  terrainLegacySpecular: {r: 0.49803922, g: 0.49803922, b: 0.49803922, a: 1}
+  terrainLegacyShininess: 0.078125
+  useTerrainDrawInstanced: 1
+  useTerrainPerPixelNormals: 0
+  terrainGroupingID: 100
+  terrainAutoConnect: 1
+  topographyLayersList:
+  - type: 0
+    preset: 3
+    layerName: 
+    layerTypeMode: 0
+    noiseTileSize: 5000
+    noiseOffsetX: -2000
+    noiseOffsetZ: -2000
+    octaves: 5
+    downscaling: 1
+    lacunarity: 1.75
+    gain: 0.45
+    additiveAmount: 0.5
+    additiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    removeBaseNoise: 1
+    addMinHeight: 0
+    addHeight: 0
+    subtractiveAmount: 0.2
+    subtractiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    restrictArea: 0
+    areaRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1000
+      height: 1000
+    detailSmoothRate: 0
+    areaBlendRate: 0.5
+    warpAmount: 0
+    warpOctaves: 1
+    outputCurveModifiers:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.0625
+        inSlope: 0.5
+        outSlope: 0.5
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 4
+        outSlope: 4
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    outputCurveModifierPresets: 0d000000
+    perOctaveCurveModifiers:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.05
+        value: 0.1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.45
+        value: 0.9
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.55
+        value: 0.9
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.95
+        value: 0.1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    perOctaveCurveModifierPresets: 07000000
+    heightScale: 1.5
+    heightmapImage: {fileID: 0}
+    blurredImage: {fileID: 0}
+    interpolationSmoothing: 0
+    imageHeightScale: 1
+    imageCurveModifiers: []
+    imageCurveModifierPresets: 
+    normaliseImage: 1
+    isSmoothLayerOnly: 0
+    isSourceDataNormalised: 0
+    imageSource: 0
+    imageRepairHoles: 0
+    threshholdRepairHoles: 0
+    floorOffsetY: 0
+    filters: []
+    mapPathBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathBlendCurvePreset: 0
+    mapPathHeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathHeightCurvePreset: 0
+    mapPathAddInvert: 0
+    minHeight: 0
+    lbMapPath: {fileID: 0}
+    lbPath:
+      pathName: 
+      pathType: 10
+      closedCircuit: 0
+      showPathInScene: 1
+      showDistancesInScene: 0
+      showPointLabelsInScene: 0
+      snapToTerrain: 1
+      heightAboveTerrain: 20
+      pointDisplayScale: 1
+      pathLength: 0
+      pathLengthToLastPoint: 0
+      splineLength: 0
+      splineLengthToLastPoint: 0
+      splineDistTo2ndLastPoint: 0
+      pathResolution: 20
+      edgeBlendWidth: 5
+      blendStart: 1
+      blendEnd: 1
+      removeCentre: 0
+      leftBorderWidth: 0
+      rightBorderWidth: 0
+      isMeshLandscapeUV: 0
+      meshUVTileScale: {x: 1, y: 1}
+      meshYOffset: 0
+      meshEdgeSnapToTerrain: 0
+      meshIncludeEdges: 1
+      meshIncludeWater: 0
+      meshSnapType: 5
+      meshIsDoubleSided: 0
+      meshSaveToProjectFolder: 0
+      meshTempMaterial: {fileID: 0}
+      showAdvancedOptions: 0
+      pathPointColour: {x: 1, y: 0, z: 0, w: 0.75}
+      positionSpacingTarget: 20
+      curveDetectionInner: 3
+      curveDetectionOuter: 3
+      positionList: []
+      positionListLeftEdge: []
+      positionListRightEdge: []
+      rotationList: []
+      widthList: []
+      selectedList: 
+      lbMesh:
+        mesh: {fileID: 0}
+        title: 
+        verts: []
+        normals: []
+        triangles: 
+        uvs: []
+        uv2s: []
+        uv3s: []
+        uv4s: []
+        tangents: []
+        colours: []
+        minExtent: {x: Infinity, y: Infinity, z: Infinity}
+        maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+      lbWater:
+        isPrimaryWater: 0
+        waterPrefabName: unknown
+        waterPrefabPath: 
+        waterLevel: 0
+        name: secondary water
+        GUID: 043bc510-9f1a-4e4f-a45d-908d41045fca
+        meshBoundsRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        meshScale: {x: 1, y: 1, z: 1}
+        resizingMode: 0
+        waterSize: {x: 100, y: 100}
+        keepPrefabAspectRatio: 0
+        waterCausticList: []
+        waterPosition: {x: 0, y: 0, z: 0}
+        isDisabled: 0
+        isRiver: 0
+        riverMaterial: {fileID: 0}
+        flowMapTexture: {fileID: 0}
+        riverFlowSpeed: 1.5
+        isUnderWaterFXEnabled: 0
+        underWaterFXPrefabName: unknown
+        underWaterFXPrefabPath: 
+        waterMaterial: {fileID: 0}
+        meshResizingMode: 0
+      findZoomDistance: 50
+      zoomOnFind: 1
+    isDisabled: 0
+    showLayer: 0
+    showAdvancedSettings: 0
+    showCurvesAndFilters: 0
+    showAreaHighlighter: 0
+    lbTerrainDataList: []
+    isCheckHeightRangeDiff: 1
+    isBelowSeaLevelDataIncluded: 0
+    modifierAddInvert: 0
+    modifierUseBlending: 0
+    areaRectRotation: 0
+    modifierMode: 5
+    modifierRAWFile:
+      dataSourceName: unknown
+      rawHeightData: 
+      rawMinHeight: 0
+      rawMaxHeight: 0
+      rawSourceWidth: 0
+      rawSourceLength: 0
+      sourceFileType: 0
+    modifierLandformCategory: 5
+    modifierSourceFileType: 0
+    modifierUseWater: 0
+    modifierLBWater:
+      isPrimaryWater: 0
+      waterPrefabName: unknown
+      waterPrefabPath: 
+      waterLevel: 0
+      name: secondary water
+      GUID: 21f49391-da64-4019-9528-914559c6e7aa
+      meshBoundsRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      meshScale: {x: 1, y: 1, z: 1}
+      resizingMode: 0
+      waterSize: {x: 100, y: 100}
+      keepPrefabAspectRatio: 0
+      waterCausticList: []
+      waterPosition: {x: 0, y: 0, z: 0}
+      isDisabled: 0
+      isRiver: 0
+      riverMaterial: {fileID: 0}
+      flowMapTexture: {fileID: 0}
+      riverFlowSpeed: 1.5
+      isUnderWaterFXEnabled: 0
+      underWaterFXPrefabName: unknown
+      underWaterFXPrefabPath: 
+      waterMaterial: {fileID: 0}
+      meshResizingMode: 0
+    modifierWaterLBMesh:
+      mesh: {fileID: 0}
+      title: 
+      verts: []
+      normals: []
+      triangles: 
+      uvs: []
+      uv2s: []
+      uv3s: []
+      uv4s: []
+      tangents: []
+      colours: []
+      minExtent: {x: Infinity, y: Infinity, z: Infinity}
+      maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+    modifierWaterIsMeshLandscapeUV: 0
+    modifierWaterMeshUVTileScale: {x: 1, y: 1}
+    showVolumeHighlighter: 0
+  - type: 3
+    preset: 202
+    layerName: 
+    layerTypeMode: 0
+    noiseTileSize: 5000
+    noiseOffsetX: 0
+    noiseOffsetZ: 0
+    octaves: 2
+    downscaling: 8
+    lacunarity: 1.95
+    gain: 0.5
+    additiveAmount: 0.5
+    additiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    removeBaseNoise: 1
+    addMinHeight: 0
+    addHeight: 0
+    subtractiveAmount: 0.2
+    subtractiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    restrictArea: 0
+    areaRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1000
+      height: 1000
+    detailSmoothRate: 0
+    areaBlendRate: 0.5
+    warpAmount: 0
+    warpOctaves: 1
+    outputCurveModifiers: []
+    outputCurveModifierPresets: 
+    perOctaveCurveModifiers:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.45
+        value: 0.1
+        inSlope: 0.6471855
+        outSlope: 0.6471855
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.55
+        value: 0.9
+        inSlope: 0.8846698
+        outSlope: 0.8846698
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    perOctaveCurveModifierPresets: 16000000
+    heightScale: 0.5
+    heightmapImage: {fileID: 0}
+    blurredImage: {fileID: 0}
+    interpolationSmoothing: 0
+    imageHeightScale: 1
+    imageCurveModifiers: []
+    imageCurveModifierPresets: 
+    normaliseImage: 1
+    isSmoothLayerOnly: 0
+    isSourceDataNormalised: 0
+    imageSource: 0
+    imageRepairHoles: 0
+    threshholdRepairHoles: 0
+    floorOffsetY: 0
+    filters: []
+    mapPathBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathBlendCurvePreset: 0
+    mapPathHeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathHeightCurvePreset: 0
+    mapPathAddInvert: 0
+    minHeight: 0
+    lbMapPath: {fileID: 0}
+    lbPath:
+      pathName: 
+      pathType: 10
+      closedCircuit: 0
+      showPathInScene: 1
+      showDistancesInScene: 0
+      showPointLabelsInScene: 0
+      snapToTerrain: 1
+      heightAboveTerrain: 20
+      pointDisplayScale: 1
+      pathLength: 0
+      pathLengthToLastPoint: 0
+      splineLength: 0
+      splineLengthToLastPoint: 0
+      splineDistTo2ndLastPoint: 0
+      pathResolution: 20
+      edgeBlendWidth: 5
+      blendStart: 1
+      blendEnd: 1
+      removeCentre: 0
+      leftBorderWidth: 0
+      rightBorderWidth: 0
+      isMeshLandscapeUV: 0
+      meshUVTileScale: {x: 1, y: 1}
+      meshYOffset: 0
+      meshEdgeSnapToTerrain: 0
+      meshIncludeEdges: 1
+      meshIncludeWater: 0
+      meshSnapType: 5
+      meshIsDoubleSided: 0
+      meshSaveToProjectFolder: 0
+      meshTempMaterial: {fileID: 0}
+      showAdvancedOptions: 0
+      pathPointColour: {x: 1, y: 0, z: 0, w: 0.75}
+      positionSpacingTarget: 20
+      curveDetectionInner: 3
+      curveDetectionOuter: 3
+      positionList: []
+      positionListLeftEdge: []
+      positionListRightEdge: []
+      rotationList: []
+      widthList: []
+      selectedList: 
+      lbMesh:
+        mesh: {fileID: 0}
+        title: 
+        verts: []
+        normals: []
+        triangles: 
+        uvs: []
+        uv2s: []
+        uv3s: []
+        uv4s: []
+        tangents: []
+        colours: []
+        minExtent: {x: Infinity, y: Infinity, z: Infinity}
+        maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+      lbWater:
+        isPrimaryWater: 0
+        waterPrefabName: unknown
+        waterPrefabPath: 
+        waterLevel: 0
+        name: secondary water
+        GUID: 3a3ffe80-7599-431f-bc85-8d45f4f892d8
+        meshBoundsRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        meshScale: {x: 1, y: 1, z: 1}
+        resizingMode: 0
+        waterSize: {x: 100, y: 100}
+        keepPrefabAspectRatio: 0
+        waterCausticList: []
+        waterPosition: {x: 0, y: 0, z: 0}
+        isDisabled: 0
+        isRiver: 0
+        riverMaterial: {fileID: 0}
+        flowMapTexture: {fileID: 0}
+        riverFlowSpeed: 1.5
+        isUnderWaterFXEnabled: 0
+        underWaterFXPrefabName: unknown
+        underWaterFXPrefabPath: 
+        waterMaterial: {fileID: 0}
+        meshResizingMode: 0
+      findZoomDistance: 50
+      zoomOnFind: 1
+    isDisabled: 0
+    showLayer: 0
+    showAdvancedSettings: 1
+    showCurvesAndFilters: 1
+    showAreaHighlighter: 0
+    lbTerrainDataList: []
+    isCheckHeightRangeDiff: 1
+    isBelowSeaLevelDataIncluded: 0
+    modifierAddInvert: 0
+    modifierUseBlending: 0
+    areaRectRotation: 0
+    modifierMode: 5
+    modifierRAWFile:
+      dataSourceName: unknown
+      rawHeightData: 
+      rawMinHeight: 0
+      rawMaxHeight: 0
+      rawSourceWidth: 0
+      rawSourceLength: 0
+      sourceFileType: 0
+    modifierLandformCategory: 5
+    modifierSourceFileType: 0
+    modifierUseWater: 0
+    modifierLBWater:
+      isPrimaryWater: 0
+      waterPrefabName: unknown
+      waterPrefabPath: 
+      waterLevel: 0
+      name: secondary water
+      GUID: e5520dbb-8092-4216-a30e-61bd9fca0545
+      meshBoundsRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      meshScale: {x: 1, y: 1, z: 1}
+      resizingMode: 0
+      waterSize: {x: 100, y: 100}
+      keepPrefabAspectRatio: 0
+      waterCausticList: []
+      waterPosition: {x: 0, y: 0, z: 0}
+      isDisabled: 0
+      isRiver: 0
+      riverMaterial: {fileID: 0}
+      flowMapTexture: {fileID: 0}
+      riverFlowSpeed: 1.5
+      isUnderWaterFXEnabled: 0
+      underWaterFXPrefabName: unknown
+      underWaterFXPrefabPath: 
+      waterMaterial: {fileID: 0}
+      meshResizingMode: 0
+    modifierWaterLBMesh:
+      mesh: {fileID: 0}
+      title: 
+      verts: []
+      normals: []
+      triangles: 
+      uvs: []
+      uv2s: []
+      uv3s: []
+      uv4s: []
+      tangents: []
+      colours: []
+      minExtent: {x: Infinity, y: Infinity, z: Infinity}
+      maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+    modifierWaterIsMeshLandscapeUV: 0
+    modifierWaterMeshUVTileScale: {x: 1, y: 1}
+    showVolumeHighlighter: 0
+  - type: 3
+    preset: 202
+    layerName: 
+    layerTypeMode: 0
+    noiseTileSize: 5000
+    noiseOffsetX: 0
+    noiseOffsetZ: 0
+    octaves: 5
+    downscaling: 32
+    lacunarity: 1.95
+    gain: 0.45
+    additiveAmount: 0.5
+    additiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    removeBaseNoise: 1
+    addMinHeight: 0
+    addHeight: 0
+    subtractiveAmount: 0.2
+    subtractiveCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    restrictArea: 0
+    areaRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1000
+      height: 1000
+    detailSmoothRate: 0
+    areaBlendRate: 0.5
+    warpAmount: 0
+    warpOctaves: 1
+    outputCurveModifiers: []
+    outputCurveModifierPresets: 
+    perOctaveCurveModifiers:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4
+        value: 0.2
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6
+        value: 0.8
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    perOctaveCurveModifierPresets: 15000000
+    heightScale: 0.5
+    heightmapImage: {fileID: 0}
+    blurredImage: {fileID: 0}
+    interpolationSmoothing: 0
+    imageHeightScale: 1
+    imageCurveModifiers: []
+    imageCurveModifierPresets: 
+    normaliseImage: 1
+    isSmoothLayerOnly: 0
+    isSourceDataNormalised: 0
+    imageSource: 0
+    imageRepairHoles: 0
+    threshholdRepairHoles: 0
+    floorOffsetY: 0
+    filters: []
+    mapPathBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathBlendCurvePreset: 0
+    mapPathHeightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapPathHeightCurvePreset: 0
+    mapPathAddInvert: 0
+    minHeight: 0
+    lbMapPath: {fileID: 0}
+    lbPath:
+      pathName: 
+      pathType: 10
+      closedCircuit: 0
+      showPathInScene: 1
+      showDistancesInScene: 0
+      showPointLabelsInScene: 0
+      snapToTerrain: 1
+      heightAboveTerrain: 20
+      pointDisplayScale: 1
+      pathLength: 0
+      pathLengthToLastPoint: 0
+      splineLength: 0
+      splineLengthToLastPoint: 0
+      splineDistTo2ndLastPoint: 0
+      pathResolution: 20
+      edgeBlendWidth: 5
+      blendStart: 1
+      blendEnd: 1
+      removeCentre: 0
+      leftBorderWidth: 0
+      rightBorderWidth: 0
+      isMeshLandscapeUV: 0
+      meshUVTileScale: {x: 1, y: 1}
+      meshYOffset: 0
+      meshEdgeSnapToTerrain: 0
+      meshIncludeEdges: 1
+      meshIncludeWater: 0
+      meshSnapType: 5
+      meshIsDoubleSided: 0
+      meshSaveToProjectFolder: 0
+      meshTempMaterial: {fileID: 0}
+      showAdvancedOptions: 0
+      pathPointColour: {x: 1, y: 0, z: 0, w: 0.75}
+      positionSpacingTarget: 20
+      curveDetectionInner: 3
+      curveDetectionOuter: 3
+      positionList: []
+      positionListLeftEdge: []
+      positionListRightEdge: []
+      rotationList: []
+      widthList: []
+      selectedList: 
+      lbMesh:
+        mesh: {fileID: 0}
+        title: 
+        verts: []
+        normals: []
+        triangles: 
+        uvs: []
+        uv2s: []
+        uv3s: []
+        uv4s: []
+        tangents: []
+        colours: []
+        minExtent: {x: Infinity, y: Infinity, z: Infinity}
+        maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+      lbWater:
+        isPrimaryWater: 0
+        waterPrefabName: unknown
+        waterPrefabPath: 
+        waterLevel: 0
+        name: secondary water
+        GUID: d121be03-e822-4988-a2b1-e878f6ae9754
+        meshBoundsRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        meshScale: {x: 1, y: 1, z: 1}
+        resizingMode: 0
+        waterSize: {x: 100, y: 100}
+        keepPrefabAspectRatio: 0
+        waterCausticList: []
+        waterPosition: {x: 0, y: 0, z: 0}
+        isDisabled: 0
+        isRiver: 0
+        riverMaterial: {fileID: 0}
+        flowMapTexture: {fileID: 0}
+        riverFlowSpeed: 1.5
+        isUnderWaterFXEnabled: 0
+        underWaterFXPrefabName: unknown
+        underWaterFXPrefabPath: 
+        waterMaterial: {fileID: 0}
+        meshResizingMode: 0
+      findZoomDistance: 50
+      zoomOnFind: 1
+    isDisabled: 0
+    showLayer: 1
+    showAdvancedSettings: 1
+    showCurvesAndFilters: 1
+    showAreaHighlighter: 0
+    lbTerrainDataList: []
+    isCheckHeightRangeDiff: 1
+    isBelowSeaLevelDataIncluded: 0
+    modifierAddInvert: 0
+    modifierUseBlending: 0
+    areaRectRotation: 0
+    modifierMode: 5
+    modifierRAWFile:
+      dataSourceName: unknown
+      rawHeightData: 
+      rawMinHeight: 0
+      rawMaxHeight: 0
+      rawSourceWidth: 0
+      rawSourceLength: 0
+      sourceFileType: 0
+    modifierLandformCategory: 5
+    modifierSourceFileType: 0
+    modifierUseWater: 0
+    modifierLBWater:
+      isPrimaryWater: 0
+      waterPrefabName: unknown
+      waterPrefabPath: 
+      waterLevel: 0
+      name: secondary water
+      GUID: 3b511261-40b8-437c-adcb-882bf1f766e3
+      meshBoundsRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      meshScale: {x: 1, y: 1, z: 1}
+      resizingMode: 0
+      waterSize: {x: 100, y: 100}
+      keepPrefabAspectRatio: 0
+      waterCausticList: []
+      waterPosition: {x: 0, y: 0, z: 0}
+      isDisabled: 0
+      isRiver: 0
+      riverMaterial: {fileID: 0}
+      flowMapTexture: {fileID: 0}
+      riverFlowSpeed: 1.5
+      isUnderWaterFXEnabled: 0
+      underWaterFXPrefabName: unknown
+      underWaterFXPrefabPath: 
+      waterMaterial: {fileID: 0}
+      meshResizingMode: 0
+    modifierWaterLBMesh:
+      mesh: {fileID: 0}
+      title: 
+      verts: []
+      normals: []
+      triangles: 
+      uvs: []
+      uv2s: []
+      uv3s: []
+      uv4s: []
+      tangents: []
+      colours: []
+      minExtent: {x: Infinity, y: Infinity, z: Infinity}
+      maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+    modifierWaterIsMeshLandscapeUV: 0
+    modifierWaterMeshUVTileScale: {x: 1, y: 1}
+    showVolumeHighlighter: 0
+  terrainTexturesList:
+  - texture: {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+    normalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+    heightMap: {fileID: 0}
+    textureName: 
+    normalMapName: 
+    tileSize: {x: 25, y: 25}
+    metallic: 0
+    smoothness: 0
+    minHeight: 0.25
+    maxHeight: 0.75
+    minInclination: 0
+    maxInclination: 45
+    strength: 1
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0, b: 0, a: 1}
+    isDisabled: 0
+    mapTolerance: 1
+    useNoise: 1
+    noiseTileSize: 100
+    noiseOffset: 41.586037
+    isMinimalBlendingEnabled: 0
+    mapInverse: 0
+    useAdvancedMapTolerance: 0
+    mapToleranceRed: 0
+    mapToleranceGreen: 0
+    mapToleranceBlue: 0
+    mapToleranceAlpha: 0
+    mapWeightRed: 1
+    mapWeightGreen: 1
+    mapWeightBlue: 1
+    mapWeightAlpha: 1
+    mapToleranceBlendRate: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapToleranceBlendCurvePreset: 12
+    mapIsPath: 0
+    isTinted: 0
+    tintColour: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0.5
+    tintedTexture: {fileID: 0}
+    isRotated: 0
+    rotationAngle: 0
+    rotatedTexture: {fileID: 0}
+    texturingMode: 1
+    showTexture: 1
+    filterList: []
+    lbTerrainDataList: []
+    GUID: 9820d427-5663-4e09-b60c-56a269848446
+  - texture: {fileID: 2800000, guid: ffb0ca6483707412c8ae9a605865ccb0, type: 3}
+    normalMap: {fileID: 2800000, guid: 16415104bc3ec4fab96df2d2a686b017, type: 3}
+    heightMap: {fileID: 0}
+    textureName: 
+    normalMapName: 
+    tileSize: {x: 100, y: 100}
+    metallic: 0
+    smoothness: 0
+    minHeight: 0.25
+    maxHeight: 0.75
+    minInclination: 30
+    maxInclination: 90
+    strength: 1
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0, b: 0, a: 1}
+    isDisabled: 0
+    mapTolerance: 1
+    useNoise: 1
+    noiseTileSize: 100
+    noiseOffset: 41.59176
+    isMinimalBlendingEnabled: 0
+    mapInverse: 0
+    useAdvancedMapTolerance: 0
+    mapToleranceRed: 0
+    mapToleranceGreen: 0
+    mapToleranceBlue: 0
+    mapToleranceAlpha: 0
+    mapWeightRed: 1
+    mapWeightGreen: 1
+    mapWeightBlue: 1
+    mapWeightAlpha: 1
+    mapToleranceBlendRate: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapToleranceBlendCurvePreset: 12
+    mapIsPath: 0
+    isTinted: 0
+    tintColour: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0.5
+    tintedTexture: {fileID: 0}
+    isRotated: 0
+    rotationAngle: 0
+    rotatedTexture: {fileID: 0}
+    texturingMode: 1
+    showTexture: 1
+    filterList: []
+    lbTerrainDataList: []
+    GUID: 63f4e6d4-2c37-44c1-ba12-46b77669b4f8
+  - texture: {fileID: 2800000, guid: 44b3f5b19e24542a3ac407370453ae04, type: 3}
+    normalMap: {fileID: 2800000, guid: 80b16f255d78c45d791fb91d3559bcdf, type: 3}
+    heightMap: {fileID: 0}
+    textureName: 
+    normalMapName: 
+    tileSize: {x: 100, y: 100}
+    metallic: 0
+    smoothness: 0
+    minHeight: 1
+    maxHeight: 1
+    minInclination: 30
+    maxInclination: 60
+    strength: 1
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0, b: 0, a: 1}
+    isDisabled: 0
+    mapTolerance: 1
+    useNoise: 1
+    noiseTileSize: 100
+    noiseOffset: 32.639305
+    isMinimalBlendingEnabled: 0
+    mapInverse: 0
+    useAdvancedMapTolerance: 0
+    mapToleranceRed: 0
+    mapToleranceGreen: 0
+    mapToleranceBlue: 0
+    mapToleranceAlpha: 0
+    mapWeightRed: 1
+    mapWeightGreen: 1
+    mapWeightBlue: 1
+    mapWeightAlpha: 1
+    mapToleranceBlendRate: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapToleranceBlendCurvePreset: 12
+    mapIsPath: 0
+    isTinted: 0
+    tintColour: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0.5
+    tintedTexture: {fileID: 0}
+    isRotated: 0
+    rotationAngle: 0
+    rotatedTexture: {fileID: 0}
+    texturingMode: 1
+    showTexture: 1
+    filterList: []
+    lbTerrainDataList: []
+    GUID: b3a5a9fc-e274-44da-bcf8-db20d9df3c63
+  - texture: {fileID: 2800000, guid: dabfeb402b245491b8fd9d955b48981d, type: 3}
+    normalMap: {fileID: 2800000, guid: 5caa61bde6c354219a496147337bf357, type: 3}
+    heightMap: {fileID: 0}
+    textureName: 
+    normalMapName: 
+    tileSize: {x: 100, y: 100}
+    metallic: 0
+    smoothness: 0
+    minHeight: 0.25
+    maxHeight: 0.75
+    minInclination: 0
+    maxInclination: 30
+    strength: 0.01
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0, b: 0, a: 1}
+    isDisabled: 0
+    mapTolerance: 1
+    useNoise: 1
+    noiseTileSize: 100
+    noiseOffset: 23.349297
+    isMinimalBlendingEnabled: 0
+    mapInverse: 0
+    useAdvancedMapTolerance: 0
+    mapToleranceRed: 0
+    mapToleranceGreen: 0
+    mapToleranceBlue: 0
+    mapToleranceAlpha: 0
+    mapWeightRed: 1
+    mapWeightGreen: 1
+    mapWeightBlue: 1
+    mapWeightAlpha: 1
+    mapToleranceBlendRate: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapToleranceBlendCurvePreset: 12
+    mapIsPath: 0
+    isTinted: 0
+    tintColour: {r: 0, g: 0, b: 0, a: 0}
+    tintStrength: 0.5
+    tintedTexture: {fileID: 0}
+    isRotated: 0
+    rotationAngle: 0
+    rotatedTexture: {fileID: 0}
+    texturingMode: 3
+    showTexture: 1
+    filterList: []
+    lbTerrainDataList: []
+    GUID: 9034e7d5-727e-4b09-8b53-a175498061c6
+  terrainTreesList:
+  - maxTreesPerSqrKm: 250
+    bendFactor: 0.5
+    prefab: {fileID: 191094, guid: 13218263754c7fa4a8ddf64d5416317e, type: 2}
+    minScale: 2
+    maxScale: 3
+    treeScalingMode: 0
+    lockWidthToHeight: 0
+    minProximity: 10
+    minHeight: 0.5
+    maxHeight: 0.75
+    minInclination: 0
+    maxInclination: 25
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    mapTolerance: 1
+    useNoise: 0
+    noiseTileSize: 500
+    noiseOffset: 207.93018
+    treePlacementCutoff: 0.65
+    mapInverse: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapIsPath: 0
+    offsetY: 0
+    isDisabled: 0
+    treePlacingMode: 1
+    filterList: []
+    showTree: 1
+    isTinted: 1
+    maxTintStrength: 0.2
+    tintColour: {r: 0, g: 1, b: 0, a: 1}
+    lbTerrainDataList: []
+    prefabName: 
+    showPrefabPreview: 0
+    GUID: f101b89e-d86e-4ae2-8e5a-87a76ed78501
+  - maxTreesPerSqrKm: 250
+    bendFactor: 0.5
+    prefab: {fileID: 100888, guid: db47eb23ef9acb74da3dfcd584de6c91, type: 2}
+    minScale: 2
+    maxScale: 3
+    treeScalingMode: 0
+    lockWidthToHeight: 0
+    minProximity: 20
+    minHeight: 0.5
+    maxHeight: 0.75
+    minInclination: 0
+    maxInclination: 35
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    mapTolerance: 1
+    useNoise: 0
+    noiseTileSize: 500
+    noiseOffset: 207.95879
+    treePlacementCutoff: 0.65
+    mapInverse: 0
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapIsPath: 0
+    offsetY: 0
+    isDisabled: 0
+    treePlacingMode: 1
+    filterList: []
+    showTree: 1
+    isTinted: 1
+    maxTintStrength: 0.2
+    tintColour: {r: 0, g: 1, b: 0, a: 1}
+    lbTerrainDataList: []
+    prefabName: 
+    showPrefabPreview: 0
+    GUID: 88d88a30-1c7d-4193-a1a8-9c59a517ffe3
+  terrainGrassList:
+  - texture: {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+    textureName: 
+    minHeight: 0.75
+    maxHeight: 1
+    minWidth: 3
+    maxWidth: 3.5
+    dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    noiseSpread: 0.1
+    minPopulatedHeight: 0.5
+    maxPopulatedHeight: 1
+    minInclination: 0
+    maxInclination: 30
+    influence: 0.5
+    minDensity: 0
+    density: 4
+    detailRenderMode: 0
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 0, g: 1, b: 0, a: 1}
+    mapTolerance: 1
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapIsPath: 0
+    mapInverse: 0
+    isDisabled: 0
+    grassPlacingMode: 1
+    grassPatchFadingMode: 0
+    filterList: []
+    showGrass: 1
+    useNoise: 0
+    noiseTileSize: 10
+    noiseOctaves: 5
+    grassPlacementCutoff: 0.5
+    lbTerrainDataList: []
+    useMeshPrefab: 0
+    meshPrefab: {fileID: 0}
+    meshPrefabName: 
+    showPrefabPreview: 0
+    GUID: 403a61ac-d0bf-4e17-a6b9-bee34be1e9d7
+  - texture: {fileID: 2800000, guid: 68c9a859ebefdc04586d6d98d2aee14a, type: 3}
+    textureName: 
+    minHeight: 1
+    maxHeight: 1.5
+    minWidth: 1
+    maxWidth: 1.5
+    dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    noiseSpread: 0.1
+    minPopulatedHeight: 0.5
+    maxPopulatedHeight: 1
+    minInclination: 0
+    maxInclination: 30
+    influence: 0.5
+    minDensity: 0
+    density: 2
+    detailRenderMode: 2
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 0, g: 1, b: 0, a: 1}
+    mapTolerance: 1
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapIsPath: 0
+    mapInverse: 0
+    isDisabled: 0
+    grassPlacingMode: 1
+    grassPatchFadingMode: 0
+    filterList: []
+    showGrass: 1
+    useNoise: 0
+    noiseTileSize: 10
+    noiseOctaves: 5
+    grassPlacementCutoff: 0.5
+    lbTerrainDataList: []
+    useMeshPrefab: 0
+    meshPrefab: {fileID: 0}
+    meshPrefabName: 
+    showPrefabPreview: 0
+    GUID: 789d7b52-f793-4614-82a6-37c8baacbe2e
+  - texture: {fileID: 2800000, guid: 3d4e750d5e259f342b33be52d1b7548b, type: 3}
+    textureName: 
+    minHeight: 1
+    maxHeight: 1.5
+    minWidth: 1
+    maxWidth: 1.5
+    dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+    healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+    noiseSpread: 0.1
+    minPopulatedHeight: 0.5
+    maxPopulatedHeight: 1
+    minInclination: 0
+    maxInclination: 30
+    influence: 0.5
+    minDensity: 0
+    density: 1
+    detailRenderMode: 2
+    isCurvatureConcave: 0
+    curvatureMinHeightDiff: 1
+    curvatureDistance: 5
+    map: {fileID: 0}
+    mapColour: {r: 0, g: 1, b: 0, a: 1}
+    mapTolerance: 1
+    mapToleranceBlendCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5
+        value: 0.125
+        inSlope: 0.75
+        outSlope: 0.75
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 3
+        outSlope: 3
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    mapIsPath: 0
+    mapInverse: 0
+    isDisabled: 0
+    grassPlacingMode: 1
+    grassPatchFadingMode: 0
+    filterList: []
+    showGrass: 1
+    useNoise: 0
+    noiseTileSize: 10
+    noiseOctaves: 5
+    grassPlacementCutoff: 0.5
+    lbTerrainDataList: []
+    useMeshPrefab: 0
+    meshPrefab: {fileID: 0}
+    meshPrefabName: 
+    showPrefabPreview: 0
+    GUID: 81bb1af5-3976-49bd-a6d9-16f04fa12b50
+  landscapeMeshList: []
+  lbGroupList: []
+  landscapeWaterList: []
+  size: {x: 4000, y: 4000}
+  start: {x: 0, y: 0, z: 0}
+  topographyMaskMode: 0
+  distanceToCentreMask:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maskWarpAmount: 0
+  maskNoiseTileSize: 2000
+  maskNoiseOffsetX: 0
+  maskNoiseOffsetY: 0
+  maskNoiseCurveModifier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0.5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  LBStandardTerrainMaterial: {fileID: 0}
+  LastUpdatedVersion: 1.3.2
+  templateUnityVersion: Unknown
+  useFinalPassSmoothing: 0
+  finalPassSmoothingIterations: 1
+  finalPassPixelRange: 1
+  fPassSmoothStencilGUID: 
+  fPassSmoothStencilLayerGUID: 
+  fPassSmoothFilterMode: 0
+  thermalErosionPreset: 40
+  useThermalErosion: 0
+  thermalErosionIterations: 50
+  thermalErosionTalusAngle: 45
+  thermalErosionStrength: 0.2
+  fPassThErosionStencilGUID: 
+  fPassThErosionStencilLayerGUID: 
+  fPassThErosionFilterMode: 0
+  treePlacementSpeed: 5
+  treesHaveColliders: 0
+  sun: {fileID: 0}
+  sunIntensity: 1
+  yAxisRotation: 225
+  lightingMode: 1
+  setupMode: 0
+  envAmbientSource: 0
+  skyboxType: 0
+  skyboxesList:
+  - material: {fileID: 2100000, guid: b8f20d5ca50d16143afc11f5e4af6fc1, type: 2}
+    transitionStartTime: 15
+    transitionEndTime: 17
+  - material: {fileID: 2100000, guid: b6ceed7a620794ec4b5d6d52d34a8d95, type: 2}
+    transitionStartTime: 5
+    transitionEndTime: 6
+  proceduralSkybox: {fileID: 2100000, guid: 45b0a3896a9794cdd907d5c96ae84a7e, type: 2}
+  blendedSkybox: {fileID: 2100000, guid: 1c9ae98bd9d8a4512ba2203260c7e99b, type: 2}
+  dayLength: 1440
+  realtimeTerrainLighting: 0
+  reflProbesUpdateMode: 1
+  lightingUpdateInterval: 15
+  startTimeOfDay: 13.7
+  sunriseTime: 6
+  sunsetTime: 18
+  dayAmbientLight: {r: 0.2784314, g: 0.29411766, b: 0.31764707, a: 1}
+  nightAmbientLight: {r: 0.039215688, g: 0.039215688, b: 0.039215688, a: 1}
+  dayAmbientGndLight: {r: 0, g: 0, b: 0, a: 0}
+  nightAmbientGndLight: {r: 0, g: 0, b: 0, a: 0}
+  dayAmbientHznLight: {r: 0, g: 0, b: 0, a: 0}
+  nightAmbientHznLight: {r: 0, g: 0, b: 0, a: 0}
+  dayAmbientLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  nightAmbientLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  dayAmbientGndLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  nightAmbientGndLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  dayAmbientHznLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  nightAmbientHznLightHDR: {r: 0, g: 0, b: 0, a: 0}
+  dayFogColour: {r: 0.61960787, g: 0.7411765, b: 0.7647059, a: 1}
+  nightFogColour: {r: 0, g: 0, b: 0, a: 1}
+  dayFogDensity: 0.0003
+  nightFogDensity: 0.0005
+  sunIntensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: 0
+      outSlope: 25
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.29
+      value: 1
+      inSlope: 25
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.71
+      value: 1
+      inSlope: 0
+      outSlope: -25
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 0
+      inSlope: -25
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ambientLightGradient:
+    serializedVersion: 2
+    key0: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 1}
+    key1: {r: 0.2784314, g: 0.29411766, b: 0.31764707, a: 1}
+    key2: {r: 0.2784314, g: 0.29411766, b: 0.31764707, a: 1}
+    key3: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 0}
+    key4: {r: 0.12156863, g: 0.12156863, b: 0.12156863, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 10879
+    ctime1: 21823
+    ctime2: 43646
+    ctime3: 54591
+    ctime4: 56697
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  ambientHznLightGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  ambientGndLightGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  fogColourGradient:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 0, a: 1}
+    key1: {r: 0.6509804, g: 0.65882355, b: 0.5254902, a: 1}
+    key2: {r: 0.61960787, g: 0.7254902, b: 0.7647059, a: 0}
+    key3: {r: 0.61960787, g: 0.7411765, b: 0.7647059, a: 0}
+    key4: {r: 0.6509804, g: 0.65882355, b: 0.5254902, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 13762
+    ctime1: 16384
+    ctime2: 21823
+    ctime3: 43646
+    ctime4: 49151
+    ctime5: 51773
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
+  fogDensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.16
+      value: 1
+      inSlope: 0
+      outSlope: -5.9
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.33
+      value: 0
+      inSlope: -5.9
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.66
+      value: 0
+      inSlope: 0
+      outSlope: 5.9
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.83
+      value: 1
+      inSlope: 5.9
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minFogDensity: 0.0005
+  maxFogDensity: 0.005
+  moonIntensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.21
+      value: 1
+      inSlope: 0
+      outSlope: -25
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: -25
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 0
+      inSlope: 0
+      outSlope: 25
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.79
+      value: 1
+      inSlope: 25
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  starVisibilityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: -6.67
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: -6.67
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.75
+      value: 0
+      inSlope: 0
+      outSlope: 6.67
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 6.67
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useCelestials: 1
+  celestials: {fileID: 0}
+  mainCamera: {fileID: 0}
+  numberOfStars: 1500
+  starSize: 2
+  useMoon: 1
+  moon: {fileID: 0}
+  moonIntensity: 0.2
+  moonYAxisRotation: 225
+  moonSize: 1
+  useWeather: 1
+  isHDREnabled: 0
+  rainParticleSystemPrefab: {fileID: 477038, guid: 8c029d12358244f03b3dfa1109063299,
+    type: 2}
+  hailParticleSystemPrefab: {fileID: 0}
+  snowParticleSystemPrefab: {fileID: 0}
+  useClouds: 1
+  use3DNoise: 0
+  cloudStyle: 0
+  cloudsQualityLevel: 0
+  cloudsDetailAmount: 0
+  cloudsUpperColourDay: {r: 1, g: 1, b: 1, a: 1}
+  cloudsLowerColourDay: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  cloudsUpperColourNight: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+  cloudsLowerColourNight: {r: 0.039215688, g: 0.039215688, b: 0.039215688, a: 1}
+  cloudsUpperColourDayHDR: {r: 0, g: 0, b: 0, a: 0}
+  cloudsLowerColourDayHDR: {r: 0, g: 0, b: 0, a: 0}
+  cloudsUpperColourNightHDR: {r: 0, g: 0, b: 0, a: 0}
+  cloudsLowerColourNightHDR: {r: 0, g: 0, b: 0, a: 0}
+  weatherStatesList:
+  - name: Clear
+    probability: 1
+    wetness: 0
+    cloudDensity: 3
+    cloudCoverage: 0.35
+    cloudShadowStrength: 0.85
+    rainStrength: 0
+    hailStrength: 0
+    snowStrength: 0
+    fogDensityMultiplier: 1
+    cloudsMorphingSpeed: 50
+    windStrength: 500
+    windZoneMain: 0.5
+    windZoneTurbulence: 0.5
+    minStateDuration: 30
+    maxStateDuration: 60
+  - name: Overcast
+    probability: 0.5
+    wetness: 0.5
+    cloudDensity: 4
+    cloudCoverage: 0.5
+    cloudShadowStrength: 0.85
+    rainStrength: 0.5
+    hailStrength: 0
+    snowStrength: 0
+    fogDensityMultiplier: 1
+    cloudsMorphingSpeed: 50
+    windStrength: 1000
+    windZoneMain: 1
+    windZoneTurbulence: 1
+    minStateDuration: 30
+    maxStateDuration: 60
+  - name: Stormy
+    probability: 0.25
+    wetness: 1
+    cloudDensity: 5
+    cloudCoverage: 0.75
+    cloudShadowStrength: 0.85
+    rainStrength: 1
+    hailStrength: 0
+    snowStrength: 0
+    fogDensityMultiplier: 1
+    cloudsMorphingSpeed: 50
+    windStrength: 2000
+    windZoneMain: 3
+    windZoneTurbulence: 5
+    minStateDuration: 30
+    maxStateDuration: 60
+  startWeatherState: 0
+  minWeatherTransitionDuration: 30
+  maxWeatherTransitionDuration: 60
+  allowAutomaticTransitions: 0
+  randomiseWindDirection: 1
+  useWindZone: 0
+  lbWindZoneList: []
+  useScreenClock: 1
+  useScreenClockSeconds: 0
+  lightingCanvas: {fileID: 0}
+  screenClockPanel: {fileID: 0}
+  screenClockText: {fileID: 0}
+  screenClockTextColour: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 0.12941177}
+  fadeInOnWake: 0
+  fadeOutOnWake: 0
+  fadeInDuration: 5
+  fadeOutDuration: 5
+  showSkyboxSettings: 0
+  showGeneralLightingSettings: 0
+  showAmbientAndFogSettings: 0
+  showCelestialsSettings: 0
+  showWeatherSettings: 0
+  showWeatherCameraSettings: 0
+  showWeatherCloudSettings: 0
+  showWeatherStateSettings: 0
+  showClockSettings: 0
+  showScreenFadeSettings: 0
+  lbPathList:
+  - pathName: Camera Path
+    pathType: 10
+    closedCircuit: 0
+    showPathInScene: 0
+    showDistancesInScene: 0
+    showPointLabelsInScene: 0
+    snapToTerrain: 1
+    heightAboveTerrain: 20
+    pointDisplayScale: 1
+    pathLength: 2046.2609
+    pathLengthToLastPoint: 2046.2609
+    splineLength: 2060.4246
+    splineLengthToLastPoint: 2060.4246
+    splineDistTo2ndLastPoint: 2060.296
+    pathResolution: 2
+    edgeBlendWidth: 5
+    blendStart: 1
+    blendEnd: 1
+    removeCentre: 0
+    leftBorderWidth: 0
+    rightBorderWidth: 0
+    isMeshLandscapeUV: 0
+    meshUVTileScale: {x: 1, y: 1}
+    meshYOffset: 0
+    meshEdgeSnapToTerrain: 0
+    meshIncludeEdges: 1
+    meshIncludeWater: 0
+    meshSnapType: 5
+    meshIsDoubleSided: 0
+    meshSaveToProjectFolder: 0
+    meshTempMaterial: {fileID: 0}
+    showAdvancedOptions: 0
+    pathPointColour: {x: 1, y: 0, z: 0, w: 0.75}
+    positionSpacingTarget: 20
+    curveDetectionInner: 3
+    curveDetectionOuter: 3
+    positionList:
+    - {x: 3383.7432, y: 542.8489, z: 105.90806}
+    - {x: 3397.9045, y: 542.8489, z: 155.69304}
+    - {x: 3413.8337, y: 547.4208, z: 194.59819}
+    - {x: 3404.4148, y: 555.5675, z: 221.27525}
+    - {x: 3382.18, y: 555.00397, z: 242.27919}
+    - {x: 3324.839, y: 561.3015, z: 270.73657}
+    - {x: 3284.7273, y: 561.3015, z: 313.5497}
+    - {x: 3215.7554, y: 561.3015, z: 414.63495}
+    - {x: 3146.8342, y: 561.3015, z: 624.6302}
+    - {x: 3173.3252, y: 483.1859, z: 867.8419}
+    - {x: 3185.729, y: 475.99792, z: 921.20123}
+    - {x: 3227.0205, y: 460.819, z: 943.2145}
+    - {x: 3251.6643, y: 439.32324, z: 970.84796}
+    - {x: 3266.1458, y: 422.43433, z: 996.6284}
+    - {x: 3266.1458, y: 397.56958, z: 1033.7671}
+    - {x: 3274.8313, y: 377.22644, z: 1065.9929}
+    - {x: 3293.2576, y: 374.0111, z: 1086.4651}
+    - {x: 3301.5244, y: 374.0111, z: 1120.5114}
+    - {x: 3308.38, y: 374.0111, z: 1167.7748}
+    - {x: 3291.6172, y: 383.8992, z: 1200.2909}
+    - {x: 3297.3965, y: 390.18915, z: 1221.6371}
+    - {x: 3312.8606, y: 391.19586, z: 1234.2902}
+    - {x: 3325.1401, y: 388.3859, z: 1238.1731}
+    - {x: 3354.0684, y: 380.00928, z: 1244.1882}
+    - {x: 3352.5923, y: 376.99988, z: 1263.7305}
+    - {x: 3352.5923, y: 364.23492, z: 1300.0728}
+    - {x: 3326.1006, y: 364.23492, z: 1331.9834}
+    - {x: 3308.2725, y: 366.71948, z: 1363.5465}
+    - {x: 3273.1497, y: 366.71948, z: 1369.1943}
+    - {x: 3201.3586, y: 370.7747, z: 1395.2935}
+    - {x: 3153.8833, y: 370.7747, z: 1422.2063}
+    - {x: 3108.4502, y: 385.06653, z: 1436.1302}
+    - {x: 3088.624, y: 414.07184, z: 1463.8024}
+    - {x: 3060.6611, y: 432.37244, z: 1529.3256}
+    - {x: 3010.1006, y: 449.37018, z: 1595.1516}
+    - {x: 2942.5618, y: 469.52954, z: 1636.883}
+    - {x: 2921.689, y: 468.63315, z: 1648.5247}
+    - {x: 2915.341, y: 468.3484, z: 1652.1782}
+    positionListLeftEdge: []
+    positionListRightEdge: []
+    rotationList: []
+    widthList: []
+    selectedList: 25000000
+    lbMesh:
+      mesh: {fileID: 0}
+      title: 
+      verts: []
+      normals: []
+      triangles: 
+      uvs: []
+      uv2s: []
+      uv3s: []
+      uv4s: []
+      tangents: []
+      colours: []
+      minExtent: {x: Infinity, y: Infinity, z: Infinity}
+      maxExtent: {x: -Infinity, y: -Infinity, z: -Infinity}
+    lbWater:
+      isPrimaryWater: 0
+      waterPrefabName: unknown
+      waterPrefabPath: 
+      waterLevel: 0
+      name: secondary water
+      GUID: 8f021f33-e3b5-43ba-93bd-46a64246733c
+      meshBoundsRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      meshScale: {x: 1, y: 1, z: 1}
+      resizingMode: 0
+      waterSize: {x: 100, y: 100}
+      keepPrefabAspectRatio: 0
+      waterCausticList: []
+      waterPosition: {x: 0, y: 0, z: 0}
+      isDisabled: 0
+      isRiver: 0
+      riverMaterial: {fileID: 0}
+      flowMapTexture: {fileID: 0}
+      riverFlowSpeed: 1.5
+      isUnderWaterFXEnabled: 0
+      underWaterFXPrefabName: unknown
+      underWaterFXPrefabPath: 
+      waterMaterial: {fileID: 0}
+      meshResizingMode: 0
+    findZoomDistance: 100
+    zoomOnFind: 0
+  lbTemplateStencilList: []
+  autoRefreshGroupDesigner: 1
+  useVegetationSystem: 0
+  useVegetationSystemTextures: 0
+  useLandscapeExtension: 0
+  lbLandscapeExtension:
+    heightOffset: 0
+    texture: {fileID: 0}
+    normalMap: {fileID: 0}
+    textureName: 
+    normalMapName: 
+    tileSize: {x: 1000, y: 1000}
+    metallic: 0
+    smoothness: 0
+  useGPUTexturing: 0
+  useGPUTopography: 0
+  useGPUGrass: 0
+  useGPUPath: 0
+  isUndoTopographyDisabled: 0
+  isPopulateLandscape: 1
+  debugMode: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 129252}
+  m_IsPrefabParent: 1

@@ -1,0 +1,4139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &170210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 457268}
+  - component: {fileID: 11442380}
+  m_Layer: 0
+  m_Name: LB Default Resources
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457268
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11442380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bbf740b12884d109b1ecc44d3e0000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texturingPresetNameList:
+  - Islands
+  - Canyon
+  - Forest
+  - Mountain Range
+  - Desert
+  - Hills
+  - Rocky Hills
+  - Rivers and Hills
+  texturingPresetList:
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: 79b1e857341534ebf9a9a7a5178139a9, type: 3}
+      normalMap: {fileID: 2800000, guid: f77096ed137c44c5a8c730636820b3fb, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0
+      maxHeight: 0.5125
+      minInclination: 0
+      maxInclination: 30
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 0
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: fd556f35-b484-4c86-88a0-2669aadedde8
+    - texture: {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+      normalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.505
+      maxHeight: 0.7
+      minInclination: 0
+      maxInclination: 45
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 68940b94-cef1-4fe1-8c1c-550ca66c995f
+    - texture: {fileID: 2800000, guid: 18214e9d6af6248559d501391856f1c7, type: 3}
+      normalMap: {fileID: 2800000, guid: 127ebf74cc9174990bb2e3ea765097f8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.505
+      maxHeight: 1
+      minInclination: 45
+      maxInclination: 90
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 8c2b2b30-184b-4f43-9c51-4be9c0f1a16c
+    - texture: {fileID: 2800000, guid: 440eb36db91ca410f800ff3cfe43572f, type: 3}
+      normalMap: {fileID: 2800000, guid: 68aa7fb3a02884731bd8079d87c84094, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.51
+      maxHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.01
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 0
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: c42c23e8-6e50-4217-8531-a87017f96b4a
+    - texture: {fileID: 2800000, guid: 51933586d3f594db593e2a127141dc58, type: 3}
+      normalMap: {fileID: 2800000, guid: 5f6e4b1e4e24f4f5aa5526e4863e8fd8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.51
+      maxHeight: 1
+      minInclination: 30
+      maxInclination: 75
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: c57ab718-0142-499e-8c61-430a25b0f016
+    - texture: {fileID: 2800000, guid: 7247856ec89ad441d897e188c0c3c9eb, type: 3}
+      normalMap: {fileID: 2800000, guid: a66d816fde35a4b36b239d4be6154296, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.51
+      maxHeight: 0.7
+      minInclination: 20
+      maxInclination: 45
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 926f1407-9d00-4670-b099-3cd553cf4a53
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: 2d3bdd1088c4c4ee0a5a1f85bcb24c4c, type: 3}
+      normalMap: {fileID: 2800000, guid: 7d8df902e27d84f29a10961c388fc22f, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 45
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 195a70ff-ee2e-4e10-a2d5-befc3ede46b7
+    - texture: {fileID: 2800000, guid: ffb0ca6483707412c8ae9a605865ccb0, type: 3}
+      normalMap: {fileID: 2800000, guid: 16415104bc3ec4fab96df2d2a686b017, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 90
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 131656de-97c0-44ed-8c97-8f6fc4e61737
+    - texture: {fileID: 2800000, guid: 44b3f5b19e24542a3ac407370453ae04, type: 3}
+      normalMap: {fileID: 2800000, guid: 80b16f255d78c45d791fb91d3559bcdf, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 60
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 6b91f5f6-32af-4447-aa46-eb788627d67b
+    - texture: {fileID: 2800000, guid: 2d3bdd1088c4c4ee0a5a1f85bcb24c4c, type: 3}
+      normalMap: {fileID: 2800000, guid: 7d8df902e27d84f29a10961c388fc22f, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 3
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: a1c77894-ced8-45a0-b952-d9df5d3ac9f3
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: 6479b45ef5ccb408a9f6460196f66b43, type: 3}
+      normalMap: {fileID: 2800000, guid: a895bc4a6dde544df9038582becf8163, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 15, y: 15}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 20
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: eb4ce35b-b13b-406d-8ad6-efa0c52c80dd
+    - texture: {fileID: 2800000, guid: 2908d1919c5d44198b771240f6052d6d, type: 3}
+      normalMap: {fileID: 2800000, guid: 6b6ca7965593a440d8592ecdfb2bee33, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 15, y: 15}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 10
+      maxInclination: 35
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: afa2e087-4916-4276-a31a-bf0690fa5601
+    - texture: {fileID: 2800000, guid: 252ccbfdfda8946338dcb943bc7c2858, type: 3}
+      normalMap: {fileID: 2800000, guid: 568df762b72c04bcc9b884d68328a714, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 55
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 74807a50-7fb4-402b-b66e-c01e9766d356
+    - texture: {fileID: 2800000, guid: 51933586d3f594db593e2a127141dc58, type: 3}
+      normalMap: {fileID: 2800000, guid: 5f6e4b1e4e24f4f5aa5526e4863e8fd8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 50
+      maxInclination: 90
+      strength: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 237f05e4-743f-4a95-9911-ac5bfa766848
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+      normalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0
+      maxHeight: 0.5
+      minInclination: 0
+      maxInclination: 45
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 01761aca-5e10-4e08-8137-a93f98044a73
+    - texture: {fileID: 2800000, guid: ffb0ca6483707412c8ae9a605865ccb0, type: 3}
+      normalMap: {fileID: 2800000, guid: 16415104bc3ec4fab96df2d2a686b017, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.4
+      maxHeight: 1
+      minInclination: 30
+      maxInclination: 90
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: c5edb3c8-72ba-408f-a26c-c398fc9445c0
+    - texture: {fileID: 2800000, guid: 44b3f5b19e24542a3ac407370453ae04, type: 3}
+      normalMap: {fileID: 2800000, guid: 80b16f255d78c45d791fb91d3559bcdf, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 60
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 3acb4d68-66e7-42ce-b75d-18bc857bab7d
+    - texture: {fileID: 2800000, guid: dabfeb402b245491b8fd9d955b48981d, type: 3}
+      normalMap: {fileID: 2800000, guid: 5caa61bde6c354219a496147337bf357, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 3
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 3b3c91c1-63e0-4284-9c41-d859d5f44f4e
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: bfd675cc0db1d4656b75dc6d6ba91142, type: 3}
+      normalMap: {fileID: 2800000, guid: 44aa1585513be405791cbf1ff933e832, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 3
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 536f323b-3f6f-44ae-92d3-da073e6fcb95
+    - texture: {fileID: 2800000, guid: 51933586d3f594db593e2a127141dc58, type: 3}
+      normalMap: {fileID: 2800000, guid: 5f6e4b1e4e24f4f5aa5526e4863e8fd8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 45
+      maxInclination: 90
+      strength: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: fe27439e-49eb-4b19-ac07-4f1e223925af
+    - texture: {fileID: 2800000, guid: 371ff9e80905c4cf5a1b03450b2206d2, type: 3}
+      normalMap: {fileID: 2800000, guid: b9061503127d54a65b7215d3e9e9aa3a, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.5
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 0eb9e6c4-f81f-4fbe-879e-26b890ec53ee
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+      normalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 60
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 4bd837fc-7562-4b49-a341-3bbc67151585
+    - texture: {fileID: 2800000, guid: 18214e9d6af6248559d501391856f1c7, type: 3}
+      normalMap: {fileID: 2800000, guid: 127ebf74cc9174990bb2e3ea765097f8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 90
+      strength: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 0
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: e1ef783b-2dea-4431-8462-c465d0c262f8
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+      normalMap: {fileID: 2800000, guid: d514aabbca730458b9ef7aca670552f0, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 45
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 9bd85564-7476-4319-8e88-1d71eee24231
+    - texture: {fileID: 2800000, guid: ffb0ca6483707412c8ae9a605865ccb0, type: 3}
+      normalMap: {fileID: 2800000, guid: 16415104bc3ec4fab96df2d2a686b017, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 30
+      maxInclination: 90
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: f835a99c-9eba-4624-86da-5825f9f855bb
+    - texture: {fileID: 2800000, guid: 44b3f5b19e24542a3ac407370453ae04, type: 3}
+      normalMap: {fileID: 2800000, guid: 80b16f255d78c45d791fb91d3559bcdf, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 1
+      maxHeight: 1
+      minInclination: 30
+      maxInclination: 60
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 670102b7-04ed-4579-89e2-224a6ac30fb7
+    - texture: {fileID: 2800000, guid: dabfeb402b245491b8fd9d955b48981d, type: 3}
+      normalMap: {fileID: 2800000, guid: 5caa61bde6c354219a496147337bf357, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 100, y: 100}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.01
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 3
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: adb51da1-64c9-48e4-b726-c341b0f7462f
+  - terrainTextureList:
+    - texture: {fileID: 2800000, guid: 5182e019ca0e04b1b91a3373eca03746, type: 3}
+      normalMap: {fileID: 2800000, guid: f77096ed137c44c5a8c730636820b3fb, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0
+      maxHeight: 0.1875
+      minInclination: 0
+      maxInclination: 30
+      strength: 0.01
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 0
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: ee6b2ca6-a9fc-41f2-946d-6ef969115055
+    - texture: {fileID: 2800000, guid: 31f1b9ba07e514fb39f57033e86993e7, type: 3}
+      normalMap: {fileID: 2800000, guid: e15f1edaaecd8407d9e1274811c8ea18, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.175
+      maxHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 2
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: 5059cdbc-bbd9-4b8b-aa94-b6a11a27e768
+    - texture: {fileID: 2800000, guid: 51933586d3f594db593e2a127141dc58, type: 3}
+      normalMap: {fileID: 2800000, guid: 5f6e4b1e4e24f4f5aa5526e4863e8fd8, type: 3}
+      heightMap: {fileID: 0}
+      textureName: 
+      normalMapName: 
+      tileSize: {x: 25, y: 25}
+      metallic: 0
+      smoothness: 0
+      minHeight: 0.25
+      maxHeight: 0.75
+      minInclination: 29
+      maxInclination: 90
+      strength: 1
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0, b: 0, a: 1}
+      isDisabled: 0
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 100
+      noiseOffset: 0
+      isMinimalBlendingEnabled: 0
+      mapInverse: 0
+      useAdvancedMapTolerance: 0
+      mapToleranceRed: 0
+      mapToleranceGreen: 0
+      mapToleranceBlue: 0
+      mapToleranceAlpha: 0
+      mapWeightRed: 1
+      mapWeightGreen: 1
+      mapWeightBlue: 1
+      mapWeightAlpha: 1
+      mapToleranceBlendRate: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapToleranceBlendCurvePreset: 12
+      mapIsPath: 0
+      isTinted: 0
+      tintColour: {r: 0, g: 0, b: 0, a: 0}
+      tintStrength: 0.5
+      tintedTexture: {fileID: 0}
+      isRotated: 0
+      rotationAngle: 0
+      rotatedTexture: {fileID: 0}
+      texturingMode: 1
+      showTexture: 1
+      filterList: []
+      lbTerrainDataList: []
+      GUID: c56826c0-540e-423c-9cc0-9ba1df122657
+  treePresetNameList:
+  - Pine Forest
+  - Mixed Forest
+  - Bushland
+  - Fast Forest
+  - Mountain Pines
+  - Islands Forest
+  treePresetList:
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 143246, guid: ef2b082c5a3104ea8aa2e7c92baa4256, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 0
+      minProximity: 10
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 0
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 48036f28-ab8b-497e-8289-bd7ba59b685a
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 143246, guid: ef2b082c5a3104ea8aa2e7c92baa4256, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 0
+      minProximity: 10
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 25
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 0
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 45cd3a0a-2b4c-4401-bfaf-a4bebe705202
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 122034, guid: 89115865b9bfb4eca8ac51eef4a50fea, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 0
+      minProximity: 20
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 35
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 0
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 5776b0dc-29f5-4662-a9d5-523192a708f9
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 122034, guid: 89115865b9bfb4eca8ac51eef4a50fea, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 0
+      minProximity: 20
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 20
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 419f3d6a-7983-48cb-8d7d-f6f99ea8b11c
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 100000, guid: 151e43d75940047beadd42a7a05fb47f, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 1
+      minProximity: 10
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 0
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: ddba173d-049a-415d-8bdc-7daf8610375a
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 100000, guid: db111a59811f641e294b96b003a12050, type: 2}
+      minScale: 2
+      maxScale: 3
+      treeScalingMode: 0
+      lockWidthToHeight: 1
+      minProximity: 10
+      minHeight: 0.5
+      maxHeight: 0.75
+      minInclination: 0
+      maxInclination: 30
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 0
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 1
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 8070b3b9-406c-48fb-9154-06263b548798
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 143246, guid: ef2b082c5a3104ea8aa2e7c92baa4256, type: 2}
+      minScale: 1
+      maxScale: 3
+      treeScalingMode: 1
+      lockWidthToHeight: 1
+      minProximity: 10
+      minHeight: 0
+      maxHeight: 0.5
+      minInclination: 0
+      maxInclination: 30
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 2
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: e60b72c4-bfe8-4b43-b1a5-03ff944df622
+  - terrainTreeList:
+    - maxTreesPerSqrKm: 250
+      bendFactor: 0.5
+      prefab: {fileID: 122034, guid: 89115865b9bfb4eca8ac51eef4a50fea, type: 2}
+      minScale: 1
+      maxScale: 3
+      treeScalingMode: 1
+      lockWidthToHeight: 1
+      minProximity: 20
+      minHeight: 0.51
+      maxHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+      mapTolerance: 1
+      useNoise: 1
+      noiseTileSize: 500
+      noiseOffset: 0
+      treePlacementCutoff: 0.65
+      mapInverse: 0
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      offsetY: 0
+      isDisabled: 0
+      treePlacingMode: 2
+      filterList: []
+      showTree: 1
+      isTinted: 1
+      maxTintStrength: 0.2
+      tintColour: {r: 0, g: 1, b: 0, a: 1}
+      lbTerrainDataList: []
+      prefabName: 
+      showPrefabPreview: 0
+      GUID: 34f928cf-679d-48b2-af0e-56bc76a0b78b
+  grassPresetNameList:
+  - Hills
+  - Islands
+  - Forest
+  - Meadows
+  - Savannah
+  grassPresetList:
+  - terrainGrassList:
+    - texture: {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+      textureName: 
+      minHeight: 0.75
+      maxHeight: 1
+      minWidth: 3
+      maxWidth: 3.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 45
+      influence: 0.5
+      minDensity: 0
+      density: 5
+      detailRenderMode: 0
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 09073547-4509-483b-9cbb-1c9815c94545
+    - texture: {fileID: 2800000, guid: 79dfba995a898e7499847ad5bb356502, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 45
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 15cf53b3-d4fe-4a8c-8510-a539b7a1a5d7
+    - texture: {fileID: 2800000, guid: a8ce61d7887379348997e845141b7d5a, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 45
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: f80a224e-bf9c-461b-8ef4-040180746159
+  - terrainGrassList:
+    - texture: {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+      textureName: 
+      minHeight: 0.75
+      maxHeight: 1
+      minWidth: 3
+      maxWidth: 3.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.51
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      influence: 0.5
+      minDensity: 0
+      density: 5
+      detailRenderMode: 0
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 2
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: e13f0959-09e8-45c9-ad19-7a6bb2bec80b
+    - texture: {fileID: 2800000, guid: a8ce61d7887379348997e845141b7d5a, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.51
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 2
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 7c82b1c0-0d73-4f7a-80ff-d41c9cef18fa
+    - texture: {fileID: 2800000, guid: 07584cea722c4a64c83aefda269fc807, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.51
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 2
+      grassPatchFadingMode: 1
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 6ed3c9b7-5725-4531-8d77-fce6b01a2655
+  - terrainGrassList:
+    - texture: {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+      textureName: 
+      minHeight: 0.75
+      maxHeight: 1
+      minWidth: 3
+      maxWidth: 3.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 4
+      detailRenderMode: 0
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 4ac01736-1a7a-458f-943d-1c54defea339
+    - texture: {fileID: 2800000, guid: 68c9a859ebefdc04586d6d98d2aee14a, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 2
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 63f626fd-00e1-474e-8eab-1a0e2f9a7b74
+    - texture: {fileID: 2800000, guid: 3d4e750d5e259f342b33be52d1b7548b, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 126368ef-1af3-4b3e-b8f7-6b400c194dae
+  - terrainGrassList:
+    - texture: {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+      textureName: 
+      minHeight: 0.75
+      maxHeight: 1
+      minWidth: 3
+      maxWidth: 3.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 5
+      detailRenderMode: 0
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 3e1c2bb2-4131-4fc5-b599-8f08c6235b49
+    - texture: {fileID: 2800000, guid: 3a485fd7c9a94ee4097690a5bc4917fa, type: 3}
+      textureName: 
+      minHeight: 0.5
+      maxHeight: 1
+      minWidth: 0.5
+      maxWidth: 1
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 1
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 34ad97ca-f01d-4600-b396-88e86241649e
+    - texture: {fileID: 2800000, guid: e4ce70700c0addc41b39e21dcd7594fd, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 1.5
+      minWidth: 1
+      maxWidth: 1.5
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 40
+      influence: 0.5
+      minDensity: 0
+      density: 1
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 1
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: dcaac64d-c1ec-4efd-bde9-f79fc7c54afd
+  - terrainGrassList:
+    - texture: {fileID: 2800000, guid: d6cdc79ec19714fcd980ca3f6ac01a0a, type: 3}
+      textureName: 
+      minHeight: 1
+      maxHeight: 2
+      minWidth: 1
+      maxWidth: 2
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      influence: 0.5
+      minDensity: 0
+      density: 5
+      detailRenderMode: 0
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: 7daadeaf-126d-414d-af3e-2d6d62d10d68
+    - texture: {fileID: 2800000, guid: 3d4e750d5e259f342b33be52d1b7548b, type: 3}
+      textureName: 
+      minHeight: 1.5
+      maxHeight: 2
+      minWidth: 1.5
+      maxWidth: 2
+      dryColour: {r: 0.8039216, g: 0.7372549, b: 0.101960786, a: 1}
+      healthyColour: {r: 0.2627451, g: 0.9764706, b: 0.16470589, a: 1}
+      noiseSpread: 0.1
+      minPopulatedHeight: 0.5
+      maxPopulatedHeight: 1
+      minInclination: 0
+      maxInclination: 30
+      influence: 0.5
+      minDensity: 0
+      density: 2
+      detailRenderMode: 2
+      isCurvatureConcave: 0
+      curvatureMinHeightDiff: 1
+      curvatureDistance: 5
+      map: {fileID: 0}
+      mapColour: {r: 0, g: 1, b: 0, a: 1}
+      mapTolerance: 1
+      mapToleranceBlendCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 0.125
+          inSlope: 0.75
+          outSlope: 0.75
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 3
+          outSlope: 3
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      mapIsPath: 0
+      mapInverse: 0
+      isDisabled: 0
+      grassPlacingMode: 1
+      grassPatchFadingMode: 0
+      filterList: []
+      showGrass: 1
+      useNoise: 0
+      noiseTileSize: 10
+      noiseOctaves: 5
+      grassPlacementCutoff: 0.5
+      lbTerrainDataList: []
+      useMeshPrefab: 0
+      meshPrefab: {fileID: 0}
+      meshPrefabName: 
+      showPrefabPreview: 0
+      GUID: a00563a1-63c2-4279-a779-4cfe6dc5858d
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: texturingPresetNameList.Array.data[3]
+      value: Mountain Range
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: texturingPresetNameList.Array.data[4]
+      value: Desert
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 170210}
+  m_IsPrefabParent: 1

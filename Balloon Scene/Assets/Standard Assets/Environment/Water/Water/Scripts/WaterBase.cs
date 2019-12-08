@@ -17,7 +17,6 @@ namespace UnityStandardAssets.Water
         public WaterQuality waterQuality = WaterQuality.High;
         public bool edgeBlend = true;
 
-
         public void UpdateShader()
         {
             if (waterQuality > WaterQuality.Medium)

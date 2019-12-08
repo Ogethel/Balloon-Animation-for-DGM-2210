@@ -1,0 +1,75 @@
+﻿// Landscape Builder. Copyright (c) 2016-2019 SCSM Pty Ltd. All rights reserved.
+#pragma kernel ObjPathRemoveTrees
+
+#define LB_PATH_NUM_THREADS 256
+
+// Landscape variables
+float3 landscapePos;
+float2 landscapeSize;
+
+// Path varibles
+float4 pathBounds;
+float edgeBlendWidth;
+float treeDistFromEdge;
+
+// LBObjProximity list
+uint numTreeObjProxities;
+
+struct LBObjectProximity
+{
+	float3 position;
+	float proximity;
+	uint terrainIndex;
+	uint objectIndex;
+};
+
+StructuredBuffer<LBObjectProximity> treeObjProximities;
+RWStructuredBuffer<int> removeTreeIndexes;
+
+#include "LBCGCalc.cginc"
+#include "LBCGPath.cginc"
+
+[numthreads(LB_PATH_NUM_THREADS, 1, 1)]
+void ObjPathRemoveTrees(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x < numTreeObjProxities)
+	{
+		// By default this tree proximity is not being removed
+		removeTreeIndexes[id.x] = 0;
+
+		LBObjectProximity treeObjProximity = treeObjProximities[id.x];
+
+		// tree proxmity positions are in landscape-space
+		float3 treePos3D = treeObjProximity.position;
+
+		// Currently don't need y-axis so set to 0.0
+		float3 worldPos3D = float3(treePos3D.x + landscapePos.x, 0.0, treePos3D.z + landscapePos.z);
+
+		if (worldPos3D.x >= pathBounds.x && worldPos3D.x <= pathBounds.z && worldPos3D.z >= pathBounds.y && worldPos3D.z <= pathBounds.w)
+		{
+			float3 quadP1;
+			float3 quadP2;
+			float3 quadP3;
+			float3 quadP4;
+			uint widthPoint;
+			uint firstMatchPtIdx;
+			uint secondMatchPtIdx;
+
+			// Check if the point is in the path, and if so find what segment it is in
+			if (IsPointInPath(worldPos3D, quadP1, quadP2, quadP3, quadP4, widthPoint, firstMatchPtIdx, secondMatchPtIdx))
+			{
+				// Declare variables to pass into GetCentreInterpolatedPathPoint function as out variables
+				float centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth;
+				// Get centre interpolated path point and related data
+				float3 centreInterpolatedPathPt = GetCentreInterpolatedPathPoint(worldPos3D, firstMatchPtIdx, secondMatchPtIdx,
+					centreNormalisedPos, hmapWorldPosToInterpolatedDist, fullPathWidth);
+
+				// Calculate the half-width of the path. This is the distance from centre to edge of path
+				// edgeBlendWidth is the fixed surround distance on each side of the path
+				float halfCorePathWidth = (fullPathWidth / 2.0) - edgeBlendWidth;
+
+				removeTreeIndexes[id.x] = (hmapWorldPosToInterpolatedDist - halfCorePathWidth <= treeDistFromEdge);
+			}
+		}
+	}
+}
